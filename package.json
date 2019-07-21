@@ -1,0 +1,82 @@
+{
+  "name": "@cpmech/az-cdk-examples",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Dorival Pedroso",
+    "email": "dorival.pedroso@gmail.com",
+    "url": "https://github.com/cpmech"
+  },
+  "repository": "cpmech/az-cdk",
+  "scripts": {
+    "cdk": "./scripts/cdk.bash",
+    "cdk-cognito": "./scripts/cdk.bash cognito AZCDK-cognito",
+    "cdk-emails": "./scripts/cdk.bash emails AZCDK-emails",
+    "cdk-service": "npm --silent run build && ./scripts/cdk.bash service AZCDK-service",
+    "cdk-pipeline": "./scripts/cdk.bash pipeline AZCDK-pipeline",
+    "cdk-coupled": "./scripts/cdk.bash pipeline-coupled ''",
+    "cdk-coupled-service": "./scripts/cdk.bash pipeline-coupled C-AZCDK-service",
+    "cdk-coupled-pipeline": "./scripts/cdk.bash pipeline-coupled C-AZCDK-pipeline",
+    "cdk-website": "./scripts/cdk.bash website AZCDK-website",
+    "sam-func": "npm --silent run build && ts-node -P tsconfig-ts-node.json scripts/sam-functions.ts",
+    "build": "rm -rf dist && rollup --config rollup.config-lambda.js",
+    "test": "jest --verbose",
+    "tw": "jest --watch --verbose",
+    "cov": "yarn build && jest --coverage",
+    "integ": "jest -c jest.config-integ.js --verbose",
+    "integw": "jest -c jest.config-integ.js --verbose --watch"
+  },
+  "description": "examples",
+  "keywords": [
+    "amazon",
+    "aws",
+    "cdk",
+    "cloudformation"
+  ],
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@cpmech/az-senqs": "^0.3.0",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.8",
+    "@types/uuid": "^3.4.5",
+    "axios": "^0.19.0",
+    "jest": "^24.8.0",
+    "mailparser": "^2.7.1",
+    "prettier": "^1.18.2",
+    "rollup": "^1.17.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.22.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3",
+    "uuid": "^3.3.2"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.1.0",
+    "@aws-cdk/aws-certificatemanager": "^1.1.0",
+    "@aws-cdk/aws-cloudformation": "^1.1.0",
+    "@aws-cdk/aws-cloudfront": "^1.1.0",
+    "@aws-cdk/aws-codebuild": "^1.1.0",
+    "@aws-cdk/aws-codepipeline": "^1.1.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.1.0",
+    "@aws-cdk/aws-cognito": "^1.1.0",
+    "@aws-cdk/aws-iam": "^1.1.0",
+    "@aws-cdk/aws-lambda": "^1.1.0",
+    "@aws-cdk/aws-route53": "^1.1.0",
+    "@aws-cdk/aws-route53-targets": "^1.1.0",
+    "@aws-cdk/aws-s3": "^1.1.0",
+    "@aws-cdk/aws-ses": "^1.1.0",
+    "@aws-cdk/aws-sns": "^1.1.0",
+    "@aws-cdk/aws-sns-subscriptions": "^1.1.0",
+    "@aws-cdk/aws-sqs": "^1.1.0",
+    "@aws-cdk/core": "^1.1.0",
+    "@cpmech/az-cdk": "2.1.0",
+    "@cpmech/az-lambda": "^0.4.2",
+    "@plabs/envars": "^0.1.3",
+    "aws-cdk": "^1.1.0"
+  }
+}
