@@ -3,6 +3,7 @@ node_modules
 dist
 coverage
 .rpt2_cache
+cdk.out
 
 # local env files
 .env
