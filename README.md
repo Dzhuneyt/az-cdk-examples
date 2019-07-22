@@ -64,6 +64,7 @@ yarn cdk service-sup deploy
 yarn cdk website synth --verbose
 ```
 
-NOTE: When the `deploy` command is passed with a self-updating pipeline (sup), only the pipeline stack will be deployed. I.e. `yarn cdk GROUP-sup deploy` will deploy the pipeline whereas the GROUP will be automatically deployed by Code Pipeline.
+## Notes
 
-For convenience, `package.json` contains a number of shortcuts such as `yarn cdk-cognito diff` and so on.
+1. For the first time, it's better to set `verifyDomain = false` in index-website.ts
+2. When the `deploy` command is passed with a self-updating pipeline (sup), only the pipeline stack will be deployed. I.e. `yarn cdk GROUP-sup deploy` will deploy the pipeline whereas the GROUP will be automatically deployed by Code Pipeline.
