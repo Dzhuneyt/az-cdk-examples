@@ -8,7 +8,8 @@ initEnvars(envars);
 
 const app = new App();
 
-const stack = new Stack(app, `${config.appName}-emails`);
+const stackName = `${config.appName}-${envars.STAGE}-emails`;
+const stack = new Stack(app, stackName);
 
 const topic = 'tester-emails';
 

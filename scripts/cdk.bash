@@ -2,46 +2,102 @@
 
 set -e
 
-DIR='src/az-cdk'
-BIN='./node_modules/.bin'
+# set directory with the index*.ts files
+DIR="src/az-cdk"
 
+# set rule set name
+# TODO: capture this from the stack
+RULE_SET_NAME="integration-tests"
+
+# check input
 if [[ $# -lt 1 ]]; then
   echo
   echo "Usage:"
   echo
-  echo "  ./`basename $0` LABEL_OF_INDEX [STACK_NAME] [CDK_CMD] [CDK_OPTIONS]"
+  echo "  ./`basename $0` GROUP[-KIND] [COMMAND] [STAGE] [OPTIONS]"
   echo
-  echo "where ${DIR}/index-LABEL_OF_INDEX.ts must exist"
-  echo
-  echo
-  echo "ERROR: LABEL_OF_INDEX is required"
+  echo "where ${DIR}/index-GROUP[-KIND].ts must exist"
   echo
   exit 1
   echo
 fi
 
-LABEL=$1
-STACK=$2
-CDKCMD=$3
-CDKOPTS="${@:4}"
+# extract input
+array=(${1//-/ })
+GROUP=${array[0]}
+KIND=${array[1]}
+COMMAND=$2
+STAGE="dev"
+OPTIONS=""
 
-CDK=$BIN/cdk
-TSNODE="$BIN/ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}'"
-APP="$TSNODE $DIR/index-$LABEL.ts"
-
-rm -rf cdk.out
-
-if [[ $CDKCMD == "diff" ]]; then
-  $CDK --app "$APP" $CDKCMD $STACK $CDKOPTS || true
-  exit 0
+# set stage and options according to the optional inputs
+if [[ $3 != "" ]]; then
+  if [[ $3 == -* ]]; then
+    OPTIONS="${@:3}"
+  else
+    STAGE=$3
+    OPTIONS="${@:4}"
+  fi
 fi
 
-if [[ $LABEL == "emails" ]] && [[ $CDKCMD == "destroy" ]]; then
+# check stage name
+if [[ $STAGE != "dev" && $STAGE != "pro" ]]; then
+  echo
+  echo "ERROR: STAGE must be either 'dev' or 'pro' (or empty => 'dev')"
+  echo
+  exit 1
+fi
+
+# deternine stack name pattern
+STACK=""
+if [[ $KIND == "sup" && $COMMAND != "bootstrap" ]]; then
+  STACK="*-sup"
+fi
+
+# show input
+echo
+echo "======================================="
+echo "  GROUP   = $GROUP"
+echo "  KIND    = $KIND"
+echo "  COMMAND = $COMMAND"
+echo "  STAGE   = $STAGE"
+echo "  OPTIONS = $OPTIONS"
+echo "======================================="
+echo
+
+# declare some constants
+BIN='./node_modules/.bin'
+CDK=$BIN/cdk
+TSNODE="$BIN/ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}'"
+
+# define function to execute the cdk command
+runcdk() {
+  dashkind=""
+  if [[ $KIND != "" ]]; then
+    dashkind="-$KIND"
+  fi
+  app="$TSNODE $DIR/index-$GROUP$dashkind.ts"
+  export STAGE=$STAGE
+  cmd="$CDK --app "$app" $COMMAND $STACK $OPTIONS"
+  if [[ $COMMAND == "diff" ]]; then
+    $CDK --app "$app" $COMMAND $STACK $OPTIONS || true
+  else
+    $CDK --app "$app" $COMMAND $STACK $OPTIONS
+  fi
+}
+
+# remove cdk.out dir
+rm -rf cdk.out
+
+# set default rule set
+if [[ $GROUP == "emails" && $COMMAND == "destroy" ]]; then
   aws ses set-active-receipt-rule-set --rule-set-name default-rule-set
 fi
 
-$CDK --app "$APP" $CDKCMD $STACK $CDKOPTS
+# run the cdk
+runcdk
 
-if [[ $LABEL == "emails" ]] && [[ $CDKCMD == "deploy" ]]; then
-  aws ses set-active-receipt-rule-set --rule-set-name integration-tests
+# set 
+if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
+  aws ses set-active-receipt-rule-set --rule-set-name $RULE_SET_NAME
 fi

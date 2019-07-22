@@ -8,7 +8,8 @@ initEnvars(envars);
 
 const app = new App();
 
-const stack = new Stack(app, `${config.appName}-website`);
+const stackName = `${config.appName}-${envars.STAGE}-website`;
+const stack = new Stack(app, stackName);
 
 new WebsiteConstruct(stack, 'Website', {
   domain: 'azcdk.xyz',

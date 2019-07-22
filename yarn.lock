@@ -673,10 +673,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cpmech/az-cdk@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-2.1.0.tgz#24ef2a25899c418c806ac0f70bcf0659627ce684"
-  integrity sha512-e/oC7QkX62W4c3RhL+GV1ONlW3RtFk/Y3KrHpJH+bhJateqjSMH9w8dst/gfV71ln9zds+Iwy5ep7RbBYFFEgg==
+"@cpmech/az-cdk@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-2.1.1.tgz#0df85424d79d78b817315f71473191f9fd0c208f"
+  integrity sha512-Tc1Z2IuUWqTUI4JB5KhSOuQYarokQdIVeysaTz9QKkHrqc2rRNzrH1Lcoq2MQbe4UDsTCRAkp/BnVUhbeKSk1Q==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.1.0"
     "@aws-cdk/aws-certificatemanager" "^1.1.0"
@@ -975,6 +975,11 @@
   integrity sha512-MU1HIvWUme74stAoc3mgAi+aMlgKOudgEvQDIm1v4RkrDudBh1T+NFp5sftpBAdXdx1J0PbdpJ+M2EsSOi1djA==
   dependencies:
     "@types/jest-diff" "*"
+
+"@types/js-yaml@^3.12.1":
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.12.1.tgz#5c6f4a1eabca84792fbd916f0cb40847f123c656"
+  integrity sha512-SGGAhXLHDx+PK4YLNcNGa6goPf9XRWQNAUUbffkwVGGXIxmDKWyGGL4inzq2sPmExu431Ekb9aEMn9BkPqEYFA==
 
 "@types/node@*", "@types/node@^12.6.2", "@types/node@^12.6.8":
   version "12.6.8"

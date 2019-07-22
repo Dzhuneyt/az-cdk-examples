@@ -9,13 +9,14 @@ initEnvars(envars);
 
 const app = new App();
 
-const stack = new Stack(app, `${config.appName}-service`);
+const stackName = `${config.appName}-${envars.STAGE}-service1`;
+const stack = new Stack(app, stackName);
 
-const construct = new LambdaApiConstruct(stack, 'API', {
-  gatewayName: config.appName,
+const api = new LambdaApiConstruct(stack, 'API', {
+  gatewayName: `${config.appName}-${envars.STAGE}-api1`,
   assetsDir: 'dist',
   cognitoId: envars.USER_POOL_ID,
   lambdas,
 });
 
-new CfnOutput(stack, 'ApiUrl', { value: construct.apiUrl });
+new CfnOutput(stack, 'ApiUrl', { value: api.apiUrl });
