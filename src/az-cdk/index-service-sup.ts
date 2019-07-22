@@ -1,6 +1,6 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { Location } from '@aws-cdk/aws-s3';
-import { LambdaApiConstruct, PipelineStackCoupled, ssmSecret } from '@cpmech/az-cdk';
+import { LambdaApiConstruct, SUPipelineStack, ssmSecret } from '@cpmech/az-cdk';
 import { initEnvars } from '@plabs/envars';
 import { envars } from './envars';
 import { lambdas } from './lambdas';
@@ -28,7 +28,7 @@ const s3dirToParams = (coords: Location) => {
 const githubSecret = ssmSecret(config.ssmParamGithub);
 
 const stackName = `${config.appName}-${envars.STAGE}-service-sup`;
-new PipelineStackCoupled(app, stackName, {
+new SUPipelineStack(app, stackName, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,
   githubSecret,
