@@ -673,10 +673,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cpmech/az-cdk@2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-2.1.7.tgz#76cd0bab33258b403d06f69440615f58b245b671"
-  integrity sha512-SZJxPlnsk7AvM97JsICpvKHxFXJQ8psi/0X/7CnaSN2YjhZAFCtobiL27NSFW+qQpGOklIegZhtsSbAu79n/WA==
+"@cpmech/az-cdk@2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-2.1.8.tgz#fc10e0f84307e838e478ebc1a3affcd86d239d21"
+  integrity sha512-qgxOYE3wTKYrWNzhz4c9BRj3DVIe6cPubPUpoLvO3iSyjq5SrWigiv6RBejfHtUR/5Cscfv04hez2de0CseQpw==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.2.0"
     "@aws-cdk/aws-certificatemanager" "^1.2.0"
