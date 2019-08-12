@@ -1,4 +1,4 @@
-import { closed } from './closed';
+import { closed } from '../closed';
 import { zeroEvent, zeroContext } from '@cpmech/az-lambda';
 
 describe('closed', () => {

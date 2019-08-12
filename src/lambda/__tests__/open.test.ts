@@ -1,4 +1,4 @@
-import { open } from './open';
+import { open } from '../open';
 import { zeroEvent, zeroContext } from '@cpmech/az-lambda';
 
 describe('open', () => {
