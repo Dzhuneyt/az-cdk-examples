@@ -16,6 +16,7 @@ const api = new LambdaApiConstruct(stack, 'API', {
   gatewayName: `${config.appName}-${envars.STAGE}-api1`,
   assetsDir: 'dist',
   cognitoId: envars.USER_POOL_ID,
+  layersDir: './src/lambda-layers',
   lambdas,
 });
 

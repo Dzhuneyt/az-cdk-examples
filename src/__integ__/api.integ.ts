@@ -10,6 +10,11 @@ initEnvars(envars);
 jest.setTimeout(10000);
 
 const r1 = { message: `OPEN ACCESS: path = /open` };
+const r2 = {
+  data: {
+    hello: `Hello graphql!`,
+  },
+};
 
 describe('API', () => {
   test('/open', async () => {
@@ -26,5 +31,11 @@ describe('API', () => {
       message = err.message;
     }
     expect(message).toBe('Request failed with status code 401');
+  });
+
+  test('/graphql', async () => {
+    const res = await axios.post(`${envars.API_URL}/graphql`, { query: '{ hello }' });
+    expect(res.status).toBe(200);
+    expect(res.data).toEqual(r2);
   });
 });

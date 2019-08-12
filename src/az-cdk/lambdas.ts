@@ -14,4 +14,11 @@ export const lambdas: ILambdaApiSpec[] = [
     httpMethods: ['GET'],
     route: 'closed',
   },
+  {
+    filenameKey: 'graphql',
+    handlerName: 'server',
+    httpMethods: ['POST'],
+    route: 'graphql',
+    unprotected: true,
+  },
 ];
