@@ -1,0 +1,21 @@
+type Character {
+  id: String!
+  fullName: String!
+  movies: [Movie]!
+}
+
+type Movie {
+  id: String!
+  title: String!
+  characters: [Character]!
+}
+
+type Query {
+  character(id: String!): Character!
+  movies: [Movie]
+  movie(id: String!): Movie!
+}
+
+schema {
+  query: Query
+}
