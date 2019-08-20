@@ -16,6 +16,7 @@ new WebsitePipelineStack(app, stackName, {
   githubUser: config.githubUser,
   domain: 'azcdk.xyz',
   cloudfrontDistributionId: envars.CLOUDFRONT_ID,
+  assetsDir: 'public',
   githubSecret,
   envars,
 });
