@@ -10,7 +10,7 @@ const typeDefs: DocumentNode = gql`
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello graphql!',
+    hello: () => 'Hello, GraphQL!',
   },
 };
 
