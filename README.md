@@ -1,4 +1,4 @@
-# Examples using az-cdk
+# Examples using az-cdk -- v1.0.0
 
 This project contains some examples that use the high-level az-cdk library. The examples are located in `src/az-cdk` while some lambda functions are located in `src/lambda`.
 
