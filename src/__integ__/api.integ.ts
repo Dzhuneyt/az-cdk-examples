@@ -12,7 +12,7 @@ jest.setTimeout(10000);
 const r1 = { message: `OPEN ACCESS: path = /open` };
 const r2 = {
   data: {
-    hello: `Hello graphql!`,
+    hello: `Hello, GraphQL!`,
   },
 };
 
