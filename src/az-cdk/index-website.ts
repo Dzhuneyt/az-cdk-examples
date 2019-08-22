@@ -15,7 +15,7 @@ const website = new WebsiteConstruct(stack, 'Website', {
   domain: 'azcdk.xyz',
   comment: 'Testing my az-cdk library',
   certificateId: envars.CERTIFICATE_ID,
-  verifyDomain: false,
+  verifyDomain: true,
 });
 
 new CfnOutput(stack, 'CloudFrontId', {
