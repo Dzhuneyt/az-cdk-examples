@@ -1,4 +1,4 @@
-import { App, Stack } from '@aws-cdk/core';
+import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { WebsiteConstruct } from '@cpmech/az-cdk';
 import { initEnvars } from '@plabs/envars';
 import { envars } from './envars';
@@ -11,9 +11,13 @@ const app = new App();
 const stackName = `${config.appName}-${envars.STAGE}-website`;
 const stack = new Stack(app, stackName);
 
-new WebsiteConstruct(stack, 'Website', {
+const website = new WebsiteConstruct(stack, 'Website', {
   domain: 'azcdk.xyz',
   comment: 'Testing my az-cdk library',
   certificateId: envars.CERTIFICATE_ID,
-  verifyDomain: true,
+  verifyDomain: false,
+});
+
+new CfnOutput(stack, 'CloudFrontId', {
+  value: website.cloudfrontDistributionId,
 });
