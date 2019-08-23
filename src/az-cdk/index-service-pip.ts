@@ -8,13 +8,11 @@ initEnvars(envars);
 
 const app = new App();
 
-const githubSecret = ssmSecret(config.ssmParamGithub);
-
 const stackName = `${config.appName}-${envars.STAGE}-service-pip`;
 new PipelineStack(app, stackName, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,
-  githubSecret,
+  githubSecret: ssmSecret(config.ssmParamGithub),
   services: ['apigateway', 'lambda'],
   envars,
 });
