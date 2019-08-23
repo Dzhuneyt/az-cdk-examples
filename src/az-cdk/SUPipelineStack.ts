@@ -1,6 +1,6 @@
 import { Construct, Stack, StackProps, SecretValue } from '@aws-cdk/core';
 import { Artifact, Pipeline } from '@aws-cdk/aws-codepipeline';
-import { Project, LinuxBuildImage, BuildSpec } from '@aws-cdk/aws-codebuild';
+import { Project, LinuxBuildImage, BuildSpec, Artifacts } from '@aws-cdk/aws-codebuild';
 import { Bucket } from '@aws-cdk/aws-s3';
 import {
   GitHubSourceAction,
@@ -36,6 +36,12 @@ export class SUPipelineStack extends Stack {
       ? [`yarn cdk ${group}-sup synth ${stage} -o ./cdk.out > /dev/null`]
       : [`npm run cdk -- ${group}-sup synth ${stage} -o ./cdk.out > /dev/null`];
 
+    // const files = ['dist/**/*', 'cdk.out/**/*'];
+    // if (props.dirLayers && props.dirLayers.length > 0) {
+    //   commands.push(`mv layers/nodejs nodejs`);
+    //   files.push('nodejs/**/*');
+    // }
+
     const project = new Project(this, 'Project', {
       environment: {
         buildImage: LinuxBuildImage.UBUNTU_14_04_NODEJS_10_14_1,
@@ -55,7 +61,8 @@ export class SUPipelineStack extends Stack {
           },
         },
         artifacts: {
-          files: [`dist/**/*`, `layers/**/*`, `cdk.out/**/*`],
+          files: ['dist/**/*', 'cdk.out/**/*'],
+          'discard-paths': 'yes',
         },
       }),
     });
@@ -95,7 +102,7 @@ export class SUPipelineStack extends Stack {
 
     const updateAction = new CloudFormationCreateUpdateStackAction({
       actionName: 'SelfUpdateAction',
-      templatePath: buildOutput.atPath(`cdk.out/${id}.template.json`),
+      templatePath: buildOutput.atPath(`${id}.template.json`),
       stackName: id,
       adminPermissions: true,
       extraInputs: [buildOutput],
@@ -103,7 +110,7 @@ export class SUPipelineStack extends Stack {
 
     const deployAction = new CloudFormationCreateUpdateStackAction({
       actionName: 'DeployAction',
-      templatePath: buildOutput.atPath(`cdk.out/${props.serviceStackName}.template.json`),
+      templatePath: buildOutput.atPath(`${props.serviceStackName}.template.json`),
       stackName: props.serviceStackName,
       adminPermissions: true,
       extraInputs: [buildOutput],
