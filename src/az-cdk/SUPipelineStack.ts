@@ -70,7 +70,6 @@ export class SUPipelineStack extends Stack {
           'secondary-artifacts': {
             lambdaLayers: {
               files: ['layers/**/*'],
-              'base-directory': 'nodejs',
             },
           },
         },
