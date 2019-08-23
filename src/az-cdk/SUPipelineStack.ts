@@ -61,8 +61,18 @@ export class SUPipelineStack extends Stack {
           },
         },
         artifacts: {
-          files: ['dist/**/*', 'cdk.out/**/*'],
+          files: [
+            'dist/**/*',
+            `cdk.out/${id}.template.json`,
+            `cdk.out/${props.serviceStackName}.template.json`,
+          ],
           'discard-paths': 'yes',
+          'secondary-artifacts': {
+            lambdaLayers: {
+              files: ['layers/**/*'],
+              'base-directory': 'nodejs',
+            },
+          },
         },
       }),
     });
@@ -83,6 +93,19 @@ export class SUPipelineStack extends Stack {
       input: sourceOutput,
       outputs: [buildOutput],
     });
+
+    const secArtifacts = new Bucket(this, 'SecondaryArtifacts', {
+      bucketName: `${id.toLowerCase()}-secondary-artifacts`,
+    });
+
+    project.addSecondaryArtifact(
+      Artifacts.s3({
+        identifier: 'lambdaLayers',
+        bucket: secArtifacts,
+        // path: 'some/path',
+        name: 'lambda-layers.zip',
+      }),
+    );
 
     const parameterOverrides: { [name: string]: any } = {};
 
