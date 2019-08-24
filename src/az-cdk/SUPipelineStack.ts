@@ -36,11 +36,15 @@ export class SUPipelineStack extends Stack {
       ? [`yarn cdk ${group}-sup synth ${stage} -o ./cdk.out > /dev/null`]
       : [`npm run cdk -- ${group}-sup synth ${stage} -o ./cdk.out > /dev/null`];
 
-    // const files = ['dist/**/*', 'cdk.out/**/*'];
-    // if (props.dirLayers && props.dirLayers.length > 0) {
-    //   commands.push(`mv layers/nodejs nodejs`);
-    //   files.push('nodejs/**/*');
-    // }
+    let buildSpecSecArtifacts = {};
+    if (props.dirLayers && props.dirLayers.length > 0) {
+      buildSpecSecArtifacts = {
+        lambdaLayers: {
+          files: ['**/*'],
+          'base-directory': 'layers',
+        },
+      };
+    }
 
     const project = new Project(this, 'Project', {
       environment: {
@@ -67,11 +71,7 @@ export class SUPipelineStack extends Stack {
             `cdk.out/${props.serviceStackName}.template.json`,
           ],
           'discard-paths': 'yes',
-          'secondary-artifacts': {
-            lambdaLayers: {
-              files: ['layers/**/*'],
-            },
-          },
+          'secondary-artifacts': buildSpecSecArtifacts,
         },
       }),
     });
@@ -93,16 +93,21 @@ export class SUPipelineStack extends Stack {
       outputs: [buildOutput],
     });
 
-    const secArtifacts = new Bucket(this, 'SecondaryArtifacts', {
+    const artifactBucket = new Bucket(this, 'ArtifactBucket', {
+      bucketName: `${id.toLowerCase()}-artifacts`,
+    });
+
+    const secondaryArtifactBucket = new Bucket(this, 'SecondaryArtifactBucket', {
       bucketName: `${id.toLowerCase()}-secondary-artifacts`,
     });
 
     project.addSecondaryArtifact(
       Artifacts.s3({
         identifier: 'lambdaLayers',
-        bucket: secArtifacts,
-        // path: 'some/path',
+        bucket: secondaryArtifactBucket,
         name: 'lambda-layers.zip',
+        includeBuildId: false,
+        encryption: false,
       }),
     );
 
@@ -117,7 +122,10 @@ export class SUPipelineStack extends Stack {
 
     if (props.dirLayers) {
       props.dirLayers.forEach(dir => {
-        const res = dir.assign(buildOutput.s3Location);
+        const res = dir.assign({
+          bucketName: secondaryArtifactBucket.bucketName,
+          objectKey: 'lambda-layers.zip',
+        });
         Object.keys(res).forEach(key => (parameterOverrides[key] = res[key]));
       });
     }
@@ -139,12 +147,8 @@ export class SUPipelineStack extends Stack {
       parameterOverrides,
     });
 
-    const artifacts = new Bucket(this, 'Artifacts', {
-      bucketName: `${id.toLowerCase()}-artifacts`,
-    });
-
     new Pipeline(this, 'Pipeline', {
-      artifactBucket: artifacts,
+      artifactBucket,
       restartExecutionOnUpdate: true,
       stages: [
         {
