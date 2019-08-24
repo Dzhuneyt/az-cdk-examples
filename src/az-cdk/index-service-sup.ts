@@ -1,10 +1,14 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
-import { LambdaApiConstruct, ssmSecret, LambdaLayersConstruct } from '@cpmech/az-cdk';
+import {
+  LambdaApiConstruct,
+  ssmSecret,
+  LambdaLayersConstruct,
+  SUPipelineStack,
+} from '@cpmech/az-cdk';
 import { initEnvars } from '@plabs/envars';
 import { envars } from './envars';
 import { lambdas } from './lambdas';
 import config from './config.json';
-import { SUPipelineStack } from './SUPipelineStack';
 
 initEnvars(envars);
 
