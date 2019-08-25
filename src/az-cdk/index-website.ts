@@ -12,10 +12,10 @@ const stackName = `${config.appName}-${envars.STAGE}-website`;
 const stack = new Stack(app, stackName);
 
 const website = new WebsiteConstruct(stack, 'Website', {
-  domain: 'azcdk.xyz',
+  domain: envars.WEBSITE_DOMAIN,
   comment: 'Testing my az-cdk library',
-  certificateId: envars.CERTIFICATE_ID,
-  verifyDomain: true,
+  certificateId: envars.WEBSITE_CERTIFICATE_ID,
+  verifyDomain: false,
 });
 
 new CfnOutput(stack, 'CloudFrontId', {

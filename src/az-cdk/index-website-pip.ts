@@ -14,8 +14,8 @@ const stackName = `${config.appName}-${envars.STAGE}-website-pip`;
 new WebsitePipelineStack(app, stackName, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,
-  websiteBucketName: 'azcdk.xyz-website',
-  cloudfrontDistributionId: envars.CLOUDFRONT_ID,
+  websiteBucketName: `${envars.WEBSITE_DOMAIN}-website`,
+  cloudfrontDistributionId: envars.WEBSITE_CLOUDFRONT_ID,
   assetsDir: 'public',
   githubSecret,
   envars,

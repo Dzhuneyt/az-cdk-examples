@@ -17,7 +17,7 @@ new ReceiveEmailSQSConstruct(stack, 'EmailSQS', {
   ruleSetName: 'integration-tests',
   emails: [
     {
-      email: envars.TESTER_EMAIL,
+      email: `tester@${envars.EMAILS_DOMAIN}`,
       topic,
     },
   ],

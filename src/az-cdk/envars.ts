@@ -1,7 +1,8 @@
 export const envars = {
   STAGE: '', // 'dev' or 'pro'
-  TESTER_EMAIL: '',
   USER_POOL_ID: '',
-  CERTIFICATE_ID: '',
-  CLOUDFRONT_ID: '',
+  EMAILS_DOMAIN: '',
+  WEBSITE_DOMAIN: '',
+  WEBSITE_CERTIFICATE_ID: '',
+  WEBSITE_CLOUDFRONT_ID: '',
 };
