@@ -103,7 +103,7 @@ if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
 fi
 
 # verify domain
-if [[ $GROUP == "website" && $COMMAND == "deploy" ]]; then
+if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "deploy" ]]; then
   echo "Do you wish to verify the domain? (choose 1 or 2)"
   export VERIFY_DOMAIN='true'
   select yn in "verify" "skip"; do
