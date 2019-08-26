@@ -97,7 +97,19 @@ fi
 # run the cdk
 runcdk
 
-# set 
+# reset default rule set 
 if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
   aws ses set-active-receipt-rule-set --rule-set-name $RULE_SET_NAME
+fi
+
+# verify domain
+if [[ $GROUP == "website" && $COMMAND == "deploy" ]]; then
+  echo "Do you wish to verify the domain? (choose 1 or 2)"
+  export VERIFY_DOMAIN='true'
+  select yn in "verify" "skip"; do
+      case $yn in
+          verify) runcdk; break;;
+          skip) exit;;
+      esac
+  done
 fi

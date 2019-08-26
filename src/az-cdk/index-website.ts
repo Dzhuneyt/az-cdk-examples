@@ -11,11 +11,14 @@ const app = new App();
 const stackName = `${config.appName}-${envars.STAGE}-website`;
 const stack = new Stack(app, stackName);
 
+const verifyDomain = !!process.env.VERIFY_DOMAIN;
+const certificateArn = verifyDomain ? envars.WEBSITE_CERTIFICATE_ARN : '';
+
 const website = new WebsiteConstruct(stack, 'Website', {
   domain: envars.WEBSITE_DOMAIN,
   comment: 'Testing my az-cdk library',
-  certificateId: envars.WEBSITE_CERTIFICATE_ID,
-  verifyDomain: false,
+  certificateArn,
+  verifyDomain,
 });
 
 new CfnOutput(stack, 'CloudFrontId', {

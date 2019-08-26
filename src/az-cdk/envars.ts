@@ -3,6 +3,6 @@ export const envars = {
   USER_POOL_ID: '',
   EMAILS_DOMAIN: '',
   WEBSITE_DOMAIN: '',
-  WEBSITE_CERTIFICATE_ID: '',
+  WEBSITE_CERTIFICATE_ARN: '',
   WEBSITE_CLOUDFRONT_ID: '',
 };
