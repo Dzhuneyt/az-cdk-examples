@@ -14,7 +14,7 @@ const stack = new Stack(app, stackName);
 const poolName = 'dear-users';
 
 const construct = new CognitoConstruct(stack, 'Cognito', {
-  emailSendingAccount: envars.TESTER_EMAIL,
+  emailSendingAccount: `tester@${envars.EMAILS_DOMAIN}`,
   poolName,
 });
 
