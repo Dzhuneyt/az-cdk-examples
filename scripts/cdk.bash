@@ -94,6 +94,11 @@ if [[ $GROUP == "emails" && $COMMAND == "destroy" ]]; then
   aws ses set-active-receipt-rule-set --rule-set-name default-rule-set
 fi
 
+# set verify domain flag
+if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "diff" ]]; then
+  export VERIFY_DOMAIN='true'
+fi
+
 # run the cdk
 runcdk
 
