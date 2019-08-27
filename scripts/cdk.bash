@@ -70,6 +70,24 @@ BIN='./node_modules/.bin'
 CDK=$BIN/cdk
 TSNODE="$BIN/ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}'"
 
+# detect existent certificate
+CERT_ARN=""
+if [[ $GROUP == "website" && $KIND == "" ]]; then
+  res=`aws cloudfront get-distribution-config --id $WEBSITE_CLOUDFRONT_ID 2>/dev/null || true`
+  if [[ $res != "" ]]; then
+    CERT_ARN=`echo $res | jq -r ".DistributionConfig.ViewerCertificate.ACMCertificateArn"`
+    if [[ $CERT_ARN == "null" ]]; then
+      CERT_ARN=""
+    fi
+  fi
+fi
+
+# set can verify domain flag
+CAN_VERIFY_DOMAIN="TRUE"
+if [[ $WEBSITE_CERTIFICATE_ARN == $CERT_ARN ]]; then
+  CAN_VERIFY_DOMAIN="FALSE"
+fi
+
 # define function to execute the cdk command
 runcdk() {
   dashkind=""
@@ -95,8 +113,8 @@ if [[ $GROUP == "emails" && $COMMAND == "destroy" ]]; then
 fi
 
 # set verify domain flag
-if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "diff" ]]; then
-  export VERIFY_DOMAIN='true'
+if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "diff" && $CAN_VERIFY_DOMAIN == "TRUE" ]]; then
+  export VERIFY_DOMAIN='TRUE'
 fi
 
 # run the cdk
@@ -108,9 +126,9 @@ if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
 fi
 
 # verify domain
-if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "deploy" ]]; then
+if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "deploy" && $CAN_VERIFY_DOMAIN == "TRUE" ]]; then
   echo "Do you wish to verify the domain? (choose 1 or 2)"
-  export VERIFY_DOMAIN='true'
+  export VERIFY_DOMAIN='TRUE'
   select yn in "verify" "skip"; do
       case $yn in
           verify) runcdk; break;;
