@@ -65,6 +65,12 @@ echo "  OPTIONS = $OPTIONS"
 echo "======================================="
 echo
 
+# handle force verify domain
+if [[ $COMMAND == "verify-domain" ]]; then
+  COMMAND="deploy"
+  export VERIFY_DOMAIN='TRUE'
+fi
+
 # declare some constants
 BIN='./node_modules/.bin'
 CDK=$BIN/cdk
@@ -125,7 +131,7 @@ if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
   aws ses set-active-receipt-rule-set --rule-set-name $RULE_SET_NAME
 fi
 
-# verify domain
+# verify domain (after initial deployment)
 if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "deploy" && $CAN_VERIFY_DOMAIN == "TRUE" ]]; then
   echo "Do you wish to verify the domain? (choose 1 or 2)"
   export VERIFY_DOMAIN='TRUE'
