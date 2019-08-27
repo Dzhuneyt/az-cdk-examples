@@ -82,16 +82,17 @@ if [[ $GROUP == "website" && $KIND == "" ]]; then
   res=`aws cloudfront get-distribution-config --id $WEBSITE_CLOUDFRONT_ID 2>/dev/null || true`
   if [[ $res != "" ]]; then
     CERT_ARN=`echo $res | jq -r ".DistributionConfig.ViewerCertificate.ACMCertificateArn"`
+    echo "CERTIFICATE ARN = $CERT_ARN"
     if [[ $CERT_ARN == "null" ]]; then
       CERT_ARN=""
     fi
   fi
 fi
 
-# set can verify domain flag
-CAN_VERIFY_DOMAIN="TRUE"
+# set flag
+CERT_IS_EQUAL="FALSE"
 if [[ $WEBSITE_CERTIFICATE_ARN == $CERT_ARN ]]; then
-  CAN_VERIFY_DOMAIN="FALSE"
+  CERT_IS_EQUAL="TRUE"
 fi
 
 # define function to execute the cdk command
@@ -119,7 +120,7 @@ if [[ $GROUP == "emails" && $COMMAND == "destroy" ]]; then
 fi
 
 # set verify domain flag
-if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "diff" && $CAN_VERIFY_DOMAIN == "TRUE" ]]; then
+if [[ $GROUP == "website" && $KIND == "" && $CERT_IS_EQUAL == "TRUE" ]]; then
   export VERIFY_DOMAIN='TRUE'
 fi
 
@@ -129,16 +130,4 @@ runcdk
 # reset default rule set 
 if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
   aws ses set-active-receipt-rule-set --rule-set-name $RULE_SET_NAME
-fi
-
-# verify domain (after initial deployment)
-if [[ $GROUP == "website" && $KIND == "" && $COMMAND == "deploy" && $CAN_VERIFY_DOMAIN == "TRUE" ]]; then
-  echo "Do you wish to verify the domain? (choose 1 or 2)"
-  export VERIFY_DOMAIN='TRUE'
-  select yn in "verify" "skip"; do
-      case $yn in
-          verify) runcdk; break;;
-          skip) exit;;
-      esac
-  done
 fi
