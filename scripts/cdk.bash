@@ -114,9 +114,9 @@ runcdk() {
 # remove cdk.out dir
 rm -rf cdk.out
 
-# set default rule set
+# disable active rule set
 if [[ $GROUP == "emails" && $COMMAND == "destroy" ]]; then
-  aws ses set-active-receipt-rule-set --rule-set-name default-rule-set
+  aws ses set-active-receipt-rule-set
 fi
 
 # set verify domain flag
