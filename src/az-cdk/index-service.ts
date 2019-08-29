@@ -22,6 +22,11 @@ const api = new LambdaApiConstruct(stack, 'API', {
   cognitoId: envars.USER_POOL_ID,
   lambdas,
   layers,
+  customDomain: {
+    prefixedDomain: `api1-dev.${envars.WEBSITE_DOMAIN}`,
+    certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
+    r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
+  },
 });
 
 new CfnOutput(stack, 'ApiUrl', { value: api.apiUrl });

@@ -5,4 +5,5 @@ export const envars = {
   WEBSITE_DOMAIN: '',
   WEBSITE_CERTIFICATE_ARN: '',
   WEBSITE_CLOUDFRONT_ID: '',
+  WEBSITE_HOSTED_ZONE_ID: '',
 };

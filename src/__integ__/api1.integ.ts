@@ -3,6 +3,7 @@ import { initEnvars } from '@plabs/envars';
 
 const envars = {
   API1_URL: '',
+  WEBSITE_DOMAIN: '',
 };
 
 initEnvars(envars);
@@ -37,5 +38,14 @@ describe('API-1', () => {
     const res = await axios.post(`${envars.API1_URL}/graphql`, { query: '{ hello }' });
     expect(res.status).toBe(200);
     expect(res.data).toEqual(r2);
+  });
+});
+
+describe('API-1 (using customDomain)', () => {
+  test('/open', async () => {
+    const customDomain = `api1-dev.${envars.WEBSITE_DOMAIN}`;
+    const res = await axios.get(`https://${customDomain}/open`);
+    expect(res.status).toBe(200);
+    expect(res.data).toEqual(r1);
   });
 });
