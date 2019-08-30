@@ -5,10 +5,6 @@ set -e
 # set directory with the index*.ts files
 DIR="src/az-cdk"
 
-# set rule set name
-# TODO: capture this from the stack
-RULE_SET_NAME="integration-tests"
-
 # check input
 if [[ $# -lt 1 ]]; then
   echo
@@ -65,59 +61,21 @@ echo "  OPTIONS = $OPTIONS"
 echo "======================================="
 echo
 
-# handle force verify domain
-if [[ $COMMAND == "verify-domain" ]]; then
-  COMMAND="deploy"
-  export VERIFY_DOMAIN='TRUE'
-fi
-
 # declare some constants
 BIN='./node_modules/.bin'
 CDK=$BIN/cdk
 TSNODE="$BIN/ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}'"
-
-# detect existent certificate
-CERT_ARN=""
-if [[ $GROUP == "website" && $KIND == "" ]]; then
-  res=`aws cloudfront get-distribution-config --id $WEBSITE_CLOUDFRONT_ID 2>/dev/null || true`
-  if [[ $res != "" ]]; then
-    CERT_ARN=`echo $res | jq -r ".DistributionConfig.ViewerCertificate.ACMCertificateArn"`
-    echo "CERTIFICATE ARN = $CERT_ARN"
-    if [[ $CERT_ARN == "null" ]]; then
-      CERT_ARN=""
-    fi
-  fi
+SUFIX=""
+if [[ $KIND != "" ]]; then
+  SUFIX="-$KIND"
 fi
+APP="$TSNODE $DIR/index-$GROUP$SUFIX.ts"
 
-# set flag
-CERT_IS_EQUAL="FALSE"
-if [[ $WEBSITE_CERTIFICATE_ARN == $CERT_ARN ]]; then
-  CERT_IS_EQUAL="TRUE"
-fi
-
-# define function to execute the cdk command
-runcdk() {
-  dashkind=""
-  if [[ $KIND != "" ]]; then
-    dashkind="-$KIND"
-  fi
-  app="$TSNODE $DIR/index-$GROUP$dashkind.ts"
-  export STAGE=$STAGE
-  cmd="$CDK --app "$app" $COMMAND $STACK $OPTIONS"
-  if [[ $COMMAND == "diff" ]]; then
-    $CDK --app "$app" $COMMAND $STACK $OPTIONS || true
-  else
-    $CDK --app "$app" $COMMAND $STACK $OPTIONS
-  fi
-}
-
-# remove cdk.out dir
+# run the CDK
+export STAGE=$STAGE
 rm -rf cdk.out
-
-# set verify domain flag
-if [[ $GROUP == "website" && $KIND == "" && $CERT_IS_EQUAL == "TRUE" ]]; then
-  export VERIFY_DOMAIN='TRUE'
+if [[ $COMMAND == "diff" ]]; then
+  $CDK --app "$APP" $COMMAND $STACK $OPTIONS || true
+else
+  $CDK --app "$APP" $COMMAND $STACK $OPTIONS
 fi
-
-# run the cdk
-runcdk
