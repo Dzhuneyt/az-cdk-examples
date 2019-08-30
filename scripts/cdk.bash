@@ -114,11 +114,6 @@ runcdk() {
 # remove cdk.out dir
 rm -rf cdk.out
 
-# disable active rule set
-if [[ $GROUP == "emails" && $COMMAND == "destroy" ]]; then
-  aws ses set-active-receipt-rule-set
-fi
-
 # set verify domain flag
 if [[ $GROUP == "website" && $KIND == "" && $CERT_IS_EQUAL == "TRUE" ]]; then
   export VERIFY_DOMAIN='TRUE'
@@ -126,8 +121,3 @@ fi
 
 # run the cdk
 runcdk
-
-# reset default rule set 
-if [[ $GROUP == "emails" && $COMMAND == "deploy" ]]; then
-  aws ses set-active-receipt-rule-set --rule-set-name $RULE_SET_NAME
-fi
