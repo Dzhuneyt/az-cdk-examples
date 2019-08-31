@@ -22,6 +22,7 @@ const layers = new LambdaLayersConstruct(serviceStack, 'Layers');
 const api = new LambdaApiConstruct(serviceStack, 'API', {
   gatewayName: `${config.appName}-${envars.STAGE}-api2`,
   cognitoId: envars.USER_POOL_ID,
+  dirDist: '',
   lambdas,
   layers,
 });
