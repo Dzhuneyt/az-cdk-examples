@@ -14,8 +14,8 @@ const stack = new Stack(app, stackName);
 const website = new WebsiteConstruct(stack, 'Website', {
   domain: envars.WEBSITE_DOMAIN,
   comment: 'Testing my az-cdk library',
+  hostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
   certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
-  verifyDomain: !!process.env.VERIFY_DOMAIN,
 });
 
 new CfnOutput(stack, 'CloudFrontId', {
