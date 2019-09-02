@@ -2,7 +2,7 @@ import axios from 'axios';
 import { initEnvars } from '@plabs/envars';
 
 const envars = {
-  API1_URL: '',
+  API_URL: '',
   WEBSITE_DOMAIN: '',
 };
 
@@ -17,9 +17,9 @@ const r2 = {
   },
 };
 
-describe('API-1', () => {
+describe('API', () => {
   test('/open', async () => {
-    const res = await axios.get(`${envars.API1_URL}/open`);
+    const res = await axios.get(`${envars.API_URL}/open`);
     expect(res.status).toBe(200);
     expect(res.data).toEqual(r1);
   });
@@ -27,7 +27,7 @@ describe('API-1', () => {
   test('/closed', async () => {
     let message = '';
     try {
-      await axios.get(`${envars.API1_URL}/closed`);
+      await axios.get(`${envars.API_URL}/closed`);
     } catch (err) {
       message = err.message;
     }
@@ -35,15 +35,15 @@ describe('API-1', () => {
   });
 
   test('/graphql', async () => {
-    const res = await axios.post(`${envars.API1_URL}/graphql`, { query: '{ hello }' });
+    const res = await axios.post(`${envars.API_URL}/graphql`, { query: '{ hello }' });
     expect(res.status).toBe(200);
     expect(res.data).toEqual(r2);
   });
 });
 
-describe('API-1 (using customDomain)', () => {
+describe('API (using customDomain)', () => {
   test('/open', async () => {
-    const customDomain = `api1-dev.${envars.WEBSITE_DOMAIN}`;
+    const customDomain = `api-dev.${envars.WEBSITE_DOMAIN}`;
     const res = await axios.get(`https://${customDomain}/open`);
     expect(res.status).toBe(200);
     expect(res.data).toEqual(r1);

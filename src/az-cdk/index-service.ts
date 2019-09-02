@@ -8,9 +8,9 @@ initEnvars(envars);
 
 const app = new App();
 
-const stackName = `${config.appName}-${envars.STAGE}-service1`;
+const stackName = `${config.appName}-${envars.STAGE}-service`;
 
-const gatewayName = `${config.appName}-${envars.STAGE}-api1`;
+const gatewayName = `${config.appName}-${envars.STAGE}-api`;
 
 const stack = new Stack(app, stackName);
 
@@ -41,7 +41,7 @@ const api = new LambdaApiConstruct(stack, 'API', {
   ],
   layers: new LambdaLayersConstruct(stack, 'Layers'),
   customDomain: {
-    prefixedDomain: `api1-dev.${envars.WEBSITE_DOMAIN}`,
+    prefixedDomain: `api-dev.${envars.WEBSITE_DOMAIN}`,
     certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
     r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
   },
