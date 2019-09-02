@@ -6,4 +6,3 @@ yarn cdk emails destroy
 yarn cdk cognito destroy
 yarn cdk service destroy
 yarn cdk service-pip destroy
-yarn cdk service-sup destroy
