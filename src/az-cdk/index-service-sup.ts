@@ -25,11 +25,11 @@ const api = new LambdaApiConstruct(serviceStack, 'API', {
   dirDist: '',
   lambdas,
   layers,
-  customDomain: {
-    prefixedDomain: `api2-dev.${envars.WEBSITE_DOMAIN}`,
-    certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
-    r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
-  },
+  // customDomain: {
+  //   prefixedDomain: `api2-dev.${envars.WEBSITE_DOMAIN}`,
+  //   certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
+  //   r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
+  // },
 });
 
 const stackName = `${config.appName}-${envars.STAGE}-service-sup`;
