@@ -12,7 +12,6 @@ The files are:
 - `index-emails` SES, SNS, and SES to receive emails
 - `index-service` API Gateway and Lambda functions
 - `index-service-pip` Code Pipeline to deploy the `service` stack
-- `index-service-sup` Two stacks: service and pipeline, where the pipeline can self-update and deploy its service stack
 - `index-website` Route53, S3, Certificate Manager, and Cloudfront to deploy a static website
 - `index-website-pip` Code Pipeline to deploy the `website` stack
 
@@ -36,12 +35,11 @@ _KIND_
 
 - NONE: Without the _KIND_ label, the stack simply corresponds to the named _GROUP_
 - **pip**: CI/CD Pipeline to deploy the corresponding stack
-- **sup**: CI/CD Self-Updating Pipeline to deploy the corresponding stack
 
 Thus, the deployed stacks are:
 
 ```
-MYAPP-{dev,pro}-{cognito,emails,service,website}[-{pip,sup}]
+MYAPP-{dev,pro}-{cognito,emails,service,website}[-{pip}]
 ```
 
 ## CDK command
@@ -55,16 +53,9 @@ yarn cdk GROUP[-KIND] [COMMAND] [STAGE] [OPTIONS]
 For example:
 
 ```bash
-yarn cdk service-sup bootstrap
 yarn cdk cognito synth --strict
 yarn cdk emails deploy
 yarn cdk service diff
 yarn cdk service-pip deploy
-yarn cdk service-sup deploy
 yarn cdk website synth --verbose
 ```
-
-## Notes
-
-1. For the first time, it's better to set `verifyDomain = false` in index-website.ts
-2. When the `deploy` command is passed with a self-updating pipeline (sup), only the pipeline stack will be deployed. I.e. `yarn cdk GROUP-sup deploy` will deploy the pipeline whereas the GROUP will be automatically deployed by Code Pipeline.
