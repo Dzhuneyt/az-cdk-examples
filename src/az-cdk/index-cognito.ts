@@ -9,6 +9,7 @@ initEnvars(envars);
 const app = new App();
 
 const stackName = `${config.appName}-${envars.STAGE}-cognito`;
+
 const stack = new Stack(app, stackName);
 
 const poolName = 'dear-users';

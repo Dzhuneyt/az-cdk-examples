@@ -9,6 +9,7 @@ initEnvars(envars);
 const app = new App();
 
 const stackName = `${config.appName}-${envars.STAGE}-service-pip`;
+
 new PipelineStack(app, stackName, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,

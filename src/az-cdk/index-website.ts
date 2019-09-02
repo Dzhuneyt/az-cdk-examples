@@ -9,6 +9,7 @@ initEnvars(envars);
 const app = new App();
 
 const stackName = `${config.appName}-${envars.STAGE}-website`;
+
 const stack = new Stack(app, stackName);
 
 const website = new WebsiteConstruct(stack, 'Website', {

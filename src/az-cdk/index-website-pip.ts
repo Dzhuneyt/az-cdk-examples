@@ -11,6 +11,7 @@ const app = new App();
 const githubSecret = ssmSecret(config.ssmParamGithub);
 
 const stackName = `${config.appName}-${envars.STAGE}-website-pip`;
+
 new WebsitePipelineStack(app, stackName, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,

@@ -10,6 +10,7 @@ initEnvars(envars);
 const app = new App();
 
 const stackName = `${config.appName}-${envars.STAGE}-emails`;
+
 const stack = new Stack(app, stackName);
 
 const emails = [`admin@${envars.EMAILS_DOMAIN}`, `tester@${envars.EMAILS_DOMAIN}`];
