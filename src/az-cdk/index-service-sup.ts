@@ -17,7 +17,7 @@ const app = new App();
 const serviceStackName = `${config.appName}-${envars.STAGE}-service2`;
 const serviceStack = new Stack(app, serviceStackName);
 
-const layers = new LambdaLayersConstruct(serviceStack, 'Layers');
+const layers = new LambdaLayersConstruct(serviceStack, 'Layers', { dirLayers: '' });
 
 const api = new LambdaApiConstruct(serviceStack, 'API', {
   gatewayName: `${config.appName}-${envars.STAGE}-api2`,
