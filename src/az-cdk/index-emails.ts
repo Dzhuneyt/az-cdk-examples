@@ -1,11 +1,8 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { ReceiveEmailSQSConstruct } from '@cpmech/az-cdk';
 import { email2key } from '@cpmech/basic';
-import { initEnvars } from '@plabs/envars';
 import { envars } from './envars';
 import config from './config.json';
-
-initEnvars(envars);
 
 const app = new App();
 

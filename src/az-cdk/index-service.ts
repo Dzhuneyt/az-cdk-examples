@@ -1,10 +1,7 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { LambdaApiConstruct, LambdaLayersConstruct } from '@cpmech/az-cdk';
-import { initEnvars } from '@plabs/envars';
 import { envars } from './envars';
 import config from './config.json';
-
-initEnvars(envars);
 
 const app = new App();
 

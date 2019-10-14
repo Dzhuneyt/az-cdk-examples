@@ -1,3 +1,5 @@
+import { initEnvars } from '@plabs/envars';
+
 export const envars = {
   STAGE: '', // 'dev' or 'pro'
   USER_POOL_ID: '',
@@ -9,3 +11,5 @@ export const envars = {
   PIPELINE_NOTIFICATION_EMAIL1: '',
   PIPELINE_NOTIFICATION_EMAIL2: '',
 };
+
+initEnvars(envars);
