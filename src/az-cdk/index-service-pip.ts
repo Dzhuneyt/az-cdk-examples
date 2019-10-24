@@ -11,7 +11,7 @@ new PipelineStack(app, stackName, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,
   githubSecret: ssmSecret(config.ssmParamGithub),
-  notificationEmails: [envars.PIPELINE_NOTIFICATION_EMAIL1, envars.PIPELINE_NOTIFICATION_EMAIL2],
+  notificationEmails: envars.PIPELINE_NOTIFICATION_EMAILS.split(','),
   services: ['apigateway', 'lambda'],
   envars,
 });
