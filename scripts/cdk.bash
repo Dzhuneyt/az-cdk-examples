@@ -10,9 +10,9 @@ if [[ $# -lt 1 ]]; then
   echo
   echo "Usage:"
   echo
-  echo "  ./`basename $0` GROUP[-KIND] [COMMAND] [STAGE] [OPTIONS]"
+  echo "  ./`basename $0` GROUP[-KIND][-SUBKIND] [COMMAND] [STAGE] [OPTIONS]"
   echo
-  echo "where ${DIR}/index-GROUP[-KIND].ts must exist"
+  echo "where ${DIR}/index-GROUP[-KIND][-SUBKIND].ts must exist"
   echo
   exit 1
   echo
@@ -22,6 +22,7 @@ fi
 array=(${1//-/ })
 GROUP=${array[0]}
 KIND=${array[1]}
+SUBKIND=${array[2]}
 COMMAND=$2
 STAGE="dev"
 OPTIONS=""
@@ -55,6 +56,7 @@ echo
 echo "======================================="
 echo "  GROUP   = $GROUP"
 echo "  KIND    = $KIND"
+echo "  SUBKIND = $SUBKIND"
 echo "  COMMAND = $COMMAND"
 echo "  STAGE   = $STAGE"
 echo "  OPTIONS = $OPTIONS"
@@ -67,7 +69,10 @@ CDK=$BIN/cdk
 TSNODE="$BIN/ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}'"
 SUFIX=""
 if [[ $KIND != "" ]]; then
-  SUFIX="-$KIND"
+  SUFIX+="-$KIND"
+fi
+if [[ $SUBKIND != "" ]]; then
+  SUFIX+="-$SUBKIND"
 fi
 APP="$TSNODE $DIR/index-$GROUP$SUFIX.ts"
 
