@@ -3,7 +3,7 @@
 set -e
 
 # set directory with the index*.ts files
-DIR="src/az-cdk"
+DIR="az-cdk"
 
 # check input
 if [[ $# -lt 1 ]]; then
