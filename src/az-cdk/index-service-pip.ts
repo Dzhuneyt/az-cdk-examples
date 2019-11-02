@@ -1,7 +1,7 @@
 import { App } from '@aws-cdk/core';
 import { PipelineStack, ssmSecret } from '@cpmech/az-cdk';
 import { envars } from './envars';
-import config from './config.json';
+import { config } from './config';
 
 const app = new App();
 

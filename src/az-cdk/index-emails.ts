@@ -2,7 +2,7 @@ import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { ReceiveEmailSQSConstruct } from '@cpmech/az-cdk';
 import { email2key } from '@cpmech/basic';
 import { envars } from './envars';
-import config from './config.json';
+import { config } from './config';
 
 const app = new App();
 
