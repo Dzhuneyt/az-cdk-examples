@@ -1,4 +1,4 @@
-import { initEnvars } from '@plabs/envars';
+import { initEnvars } from '@cpmech/envars';
 
 export const envars = {
   STAGE: '', // 'dev' or 'pro'
