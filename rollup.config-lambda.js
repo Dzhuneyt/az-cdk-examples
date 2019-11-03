@@ -4,7 +4,14 @@ import typescript from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
 import json from 'rollup-plugin-json';
 
-const external = ['graphql', 'graphql-tag', 'graphql-tools', 'apollo-server-lambda', 'querystring'];
+const external = [
+  'aws-sdk',
+  'graphql',
+  'graphql-tag',
+  'graphql-tools',
+  'apollo-server-lambda',
+  'querystring',
+];
 
 const cacheRoot = '/tmp/rollup_typescript_cache';
 
