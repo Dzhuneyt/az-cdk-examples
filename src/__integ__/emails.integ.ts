@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 import { sendEmail, receiveEmail, deleteEmail, extractCodeFromEmail } from '@cpmech/az-senqs';
-import { initEnvars } from '@plabs/envars';
+import { initEnvars } from '@cpmech/envars';
 
 const envars = {
   EMAILS_DOMAIN: '',
