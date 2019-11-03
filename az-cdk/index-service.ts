@@ -34,7 +34,7 @@ const api = new LambdaApiConstruct(stack, 'API', {
       httpMethods: ['POST'],
       route: 'graphql',
       unprotected: true,
-      accessDynamoTables: ['USERS'],
+      // accessDynamoTables: ['USERS'],
     },
   ],
   layers: new LambdaLayersConstruct(stack, 'Layers'),
@@ -43,13 +43,13 @@ const api = new LambdaApiConstruct(stack, 'API', {
     certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
     r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
   },
-  dynamoTables: [
-    {
-      name: 'USERS',
-      partitionKey: 'userId',
-      sortKey: 'aspect',
-    },
-  ],
+  // dynamoTables: [
+  //   {
+  //     name: 'USERS',
+  //     partitionKey: 'userId',
+  //     sortKey: 'aspect',
+  //   },
+  // ],
 });
 
 new CfnOutput(stack, 'ApiUrl', { value: api.apiUrl });

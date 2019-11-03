@@ -40,7 +40,7 @@ describe('API', () => {
     });
   });
 
-  it.only('should create user using the route /graphql', async () => {
+  it.skip('should create user using the route /graphql', async () => {
     const res = await request(
       `${envars.API_URL}/graphql`,
       `
