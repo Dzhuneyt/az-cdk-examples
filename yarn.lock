@@ -841,10 +841,10 @@
     "@cpmech/basic" "^2.12.0"
     aws-sdk "^2.562.0"
 
-"@cpmech/az-cdk@4.17.0":
-  version "4.17.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-4.17.0.tgz#796fd16a0581700c3a09900deb6ebee218f47156"
-  integrity sha512-uoer6W2oMyVTWgV9fgYtrh4RxQUqioC9BrCfOR9otVQaFbwdShaq1ww+MLNdCU9Tfxq8+hJRB3sXcTE0EmhaRw==
+"@cpmech/az-cdk@4.18.0":
+  version "4.18.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-4.18.0.tgz#7100707827101bdd71e60525b14c6f15a6c5b913"
+  integrity sha512-ENQ3q5mjF4j7T9J3u8aVm2yLiwGafzwsMis5Pq+59jl0t1o1wARDxtoIceZp/Cm8FpERSQsSXlVlrkczc4VB+g==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.15.0"
     "@aws-cdk/aws-certificatemanager" "^1.15.0"
@@ -871,10 +871,10 @@
     "@cpmech/basic" "^2.12.0"
     aws-sdk "^2.562.0"
 
-"@cpmech/az-cognito@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cognito/-/az-cognito-0.14.0.tgz#46fc30f6e63bcb4f3636b2ceea2204d54c828372"
-  integrity sha512-ViLhi1TEHoyf3yYvWltfhB6zbNjp4UzpyQ5g4UC3958nZPOvmmUnCH1KWIoq4vw5hoI2ZZs+kp0W89+/naHjIw==
+"@cpmech/az-cognito@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cognito/-/az-cognito-0.15.0.tgz#3da0194c8124b3e41a37fbd0832caef2f0711d24"
+  integrity sha512-V4O7XWtPULcLBMxOnBS9wK+EP1RDYhG+3M6EPa3FmbuUcxCE0aefG6yFjAWNmCgnDl0/xTdVpGUiuNf6wSnCbw==
   dependencies:
     "@cpmech/basic" "^2.12.0"
     aws-sdk "^2.562.0"
