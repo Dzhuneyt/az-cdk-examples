@@ -17,3 +17,5 @@ const construct = new CognitoConstruct(stack, 'Cognito', {
 });
 
 new CfnOutput(stack, 'PoolId', { value: construct.poolId });
+
+new CfnOutput(stack, 'ClientId', { value: construct.clientId });
