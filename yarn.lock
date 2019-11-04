@@ -841,10 +841,10 @@
     "@cpmech/basic" "^2.12.0"
     aws-sdk "^2.562.0"
 
-"@cpmech/az-cdk@4.18.0":
-  version "4.18.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-4.18.0.tgz#7100707827101bdd71e60525b14c6f15a6c5b913"
-  integrity sha512-ENQ3q5mjF4j7T9J3u8aVm2yLiwGafzwsMis5Pq+59jl0t1o1wARDxtoIceZp/Cm8FpERSQsSXlVlrkczc4VB+g==
+"@cpmech/az-cdk@4.19.0":
+  version "4.19.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-4.19.0.tgz#d95efe6770c51ebe66089dc2b79b416673ba86d3"
+  integrity sha512-K2VK8yd7Y/vRUuUx6uGNpe2Zea0Vl2sDDD383ffCkWeIt8NyFtoF2n4cYsW3ruUtn5jREaOV+MxTppJurgtA4w==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.15.0"
     "@aws-cdk/aws-certificatemanager" "^1.15.0"
