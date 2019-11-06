@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import typescript from 'rollup-plugin-typescript2';
 import resolve from 'rollup-plugin-node-resolve';
-import json from 'rollup-plugin-json';
 
 const external = [
   'aws-sdk',
@@ -11,6 +10,7 @@ const external = [
   'graphql-tools',
   'apollo-server-lambda',
   'querystring',
+  'mailparser',
 ];
 
 const cacheRoot = '/tmp/rollup_typescript_cache';
@@ -34,7 +34,6 @@ export default lambdas.map(lambda => ({
     format: 'cjs',
   },
   plugins: [
-    json(),
     typescript({
       cacheRoot,
       typescript: require('typescript'),

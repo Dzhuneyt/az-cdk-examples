@@ -9,5 +9,13 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "exclude": ["**/__integ__", "**/__tests__", "**/*.test.ts", "**/*.spec.ts", "**/*.integ.ts"]
+  "exclude": [
+    "public",
+    "public-app",
+    "**/__integ__",
+    "**/__tests__",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.integ.ts"
+  ]
 }
