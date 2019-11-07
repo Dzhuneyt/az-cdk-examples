@@ -4,6 +4,7 @@ import Amplify from '@aws-amplify/core';
 import { I18n } from 'aws-amplify';
 import { Authenticator, Greetings, AmplifyTheme } from 'aws-amplify-react';
 import { UsernameAttributes } from 'aws-amplify-react/lib-esm/Auth/common/types';
+import FacebookLogin from 'react-facebook-login';
 import { Header } from 'components';
 import { Dashboard, Home, NotFound } from './pages';
 import { useUser } from 'hooks';
@@ -54,6 +55,10 @@ const signUpConfig = {
   hiddenDefaults: ['phone_number'],
 };
 
+const responseFacebook = (response: any) => {
+  console.log(response);
+};
+
 // const TheApp: React.FC = () => {
 export const App: React.FC = () => {
   const user = useUser();
@@ -61,6 +66,12 @@ export const App: React.FC = () => {
   return (
     <React.Fragment>
       <Header />
+      <FacebookLogin
+        appId="2163835880582439"
+        autoLoad={false}
+        fields="name,email"
+        callback={responseFacebook}
+      />
       <Authenticator
         hide={[Greetings]}
         theme={theme}
