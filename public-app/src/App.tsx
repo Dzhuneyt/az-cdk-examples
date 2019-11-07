@@ -1,6 +1,7 @@
 import React from 'react';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import { OAuthButton } from 'components';
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth/lib-esm/types';
 
 // your Cognito Hosted UI configuration
 const oauth = {
@@ -42,6 +43,7 @@ export class App extends React.Component<{}, IState> {
 
     // let the Hub module listen on Auth events
     Hub.listen('auth', data => {
+      console.log('... something is happening ...', data);
       switch (data.payload.event) {
         case 'signIn':
           this.setState({ authState: 'signedIn', authData: data.payload.data });
@@ -79,6 +81,20 @@ export class App extends React.Component<{}, IState> {
       });
   }
 
+  handleFacebookLogin = async () => {
+    const res = await Auth.federatedSignIn({
+      provider: CognitoHostedUIIdentityProvider.Facebook,
+    });
+    console.log(res);
+  };
+
+  handleGoogleLogin = async () => {
+    const res = await Auth.federatedSignIn({
+      provider: CognitoHostedUIIdentityProvider.Google,
+    });
+    console.log(res);
+  };
+
   render() {
     const { authState } = this.state;
     return (
@@ -86,6 +102,9 @@ export class App extends React.Component<{}, IState> {
         {authState === 'loading' && <div>loading...</div>}
         {authState === 'signIn' && <OAuthButton />}
         {authState === 'signedIn' && <button onClick={this.signOut}>Sign out</button>}
+        <button onClick={this.handleFacebookLogin}>Facebook</button>
+        <button onClick={this.handleGoogleLogin}>Google</button>
+        <button onClick={() => Auth.signOut()}>Sign Out</button>
       </div>
     );
   }
