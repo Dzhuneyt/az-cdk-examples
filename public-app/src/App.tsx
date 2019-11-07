@@ -1,90 +1,92 @@
 import React from 'react';
-import { Router } from '@reach/router';
-import Amplify from '@aws-amplify/core';
-import { I18n } from 'aws-amplify';
-import { Authenticator, Greetings, AmplifyTheme } from 'aws-amplify-react';
-import { UsernameAttributes } from 'aws-amplify-react/lib-esm/Auth/common/types';
-import FacebookLogin from 'react-facebook-login';
-import { Header } from 'components';
-import { Dashboard, Home, NotFound } from './pages';
-import { useUser } from 'hooks';
+import Amplify, { Auth, Hub } from 'aws-amplify';
+import { OAuthButton } from 'components';
+
+// your Cognito Hosted UI configuration
+const oauth = {
+  domain: 'azcdk.auth.us-east-1.amazoncognito.com',
+  scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
+  redirectSignIn: 'https://localhost:3000/',
+  redirectSignOut: 'https://localhost:3000/',
+  responseType: 'code', // or 'token', note that REFRESH token will only be generated when the responseType is code
+};
 
 Amplify.configure({
   Auth: {
     region: 'us-east-1',
-    userPoolId: 'us-east-1_tl5SLxSyb',
-    userPoolWebClientId: '3skmgvtqjbv8a3lf6qbjav4af6',
+    userPoolId: 'us-east-1_dCZGZU74z',
+    userPoolWebClientId: '5cdculovevq2kqdhj5forn2288',
+    // userPoolId: 'us-east-1_tl5SLxSyb',
+    // userPoolWebClientId: '3skmgvtqjbv8a3lf6qbjav4af6',
   },
 });
 
-I18n.putVocabularies({
-  pt: {
-    'Sign In': 'Entrar',
-    'Sign in': 'Entrar',
-    'Sign Up': 'Criar conta',
-    'Sign in to your account': 'Fazer o login',
-    'Forget your password?': 'Esqueceu sua senha?',
-    'No account?': 'Sem conta?',
-    'Have an account?': 'Já tem conta?',
-    'Create account': 'Criar conta',
-    'Username *': 'Email',
-    'Password *': 'Senha',
-  },
-});
+Auth.configure({ oauth });
 
-I18n.setLanguage('pt');
+interface IState {
+  authState: string;
+  authData: any;
+  authError: any;
+}
 
-const theme = {
-  ...AmplifyTheme,
-  button: {
-    ...AmplifyTheme.button,
-    backgroundColor: '#ebebeb',
-  },
-  sectionBody: {
-    ...AmplifyTheme.sectionBody,
-    padding: '10px',
-  },
-  sectionHeader: {
-    ...AmplifyTheme.sectionHeader,
-    backgroundColor: '#a29bfe',
-  },
-};
+export class App extends React.Component<{}, IState> {
+  state = {
+    authState: 'loading',
+    authData: null,
+    authError: null,
+  };
 
-const signUpConfig = {
-  header: 'Criar conta',
-  hiddenDefaults: ['phone_number'],
-};
+  constructor(props: any) {
+    super(props);
+    this.signOut = this.signOut.bind(this);
 
-const responseFacebook = (response: any) => {
-  console.log(response);
-};
+    // let the Hub module listen on Auth events
+    Hub.listen('auth', data => {
+      switch (data.payload.event) {
+        case 'signIn':
+          this.setState({ authState: 'signedIn', authData: data.payload.data });
+          break;
+        case 'signIn_failure':
+          this.setState({ authState: 'signIn', authData: null, authError: data.payload.data });
+          break;
+        default:
+          break;
+      }
+    });
+  }
 
-// const TheApp: React.FC = () => {
-export const App: React.FC = () => {
-  const user = useUser();
+  componentDidMount() {
+    console.log('on component mount');
+    // check the current user when the App component is loaded
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        console.log(user);
+        this.setState({ authState: 'signedIn' });
+      })
+      .catch(e => {
+        console.log(e);
+        this.setState({ authState: 'signIn' });
+      });
+  }
 
-  return (
-    <React.Fragment>
-      <Header />
-      <FacebookLogin
-        appId="2163835880582439"
-        autoLoad={false}
-        fields="name,email"
-        callback={responseFacebook}
-      />
-      <Authenticator
-        hide={[Greetings]}
-        theme={theme}
-        signUpConfig={signUpConfig}
-        usernameAttributes={UsernameAttributes.EMAIL}
-      />
-      {user.loggedIn && (
-        <Router>
-          <Home path="/" />
-          <Dashboard path="/dashboard" />
-          <NotFound default />
-        </Router>
-      )}
-    </React.Fragment>
-  );
-};
+  signOut() {
+    Auth.signOut()
+      .then(() => {
+        this.setState({ authState: 'signIn' });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  render() {
+    const { authState } = this.state;
+    return (
+      <div className="App">
+        {authState === 'loading' && <div>loading...</div>}
+        {authState === 'signIn' && <OAuthButton />}
+        {authState === 'signedIn' && <button onClick={this.signOut}>Sign out</button>}
+      </div>
+    );
+  }
+}
