@@ -833,18 +833,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cpmech/az-cdk-crl@^0.15.0":
-  version "0.15.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk-crl/-/az-cdk-crl-0.15.0.tgz#061385b80d2c40eb3a200d059817715761fd8245"
-  integrity sha512-HU+RgJBRGD+8+IRCsMbxkrno3nk17jr34X0kLBz/f6XbnZVXI2pXD2iuC1kaYbkFF+7b5Xhvs58FYmVQLWPGrg==
+"@cpmech/az-cdk-crl@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk-crl/-/az-cdk-crl-1.0.0.tgz#13ee54ce216568e3bae899fc45da7eaa9dbcb50e"
+  integrity sha512-pLHH7JINSbsa2nw1O9gChCv/o2nq3GHg0LCFUWDIBh/zVLWzFVh50lGk+Wstj8+6dPkErs2DOHQtP2cbv46wmg==
   dependencies:
-    "@cpmech/basic" "^2.16.0"
-    aws-sdk "^2.564.0"
+    "@cpmech/basic" "^3.0.0"
+    aws-sdk "^2.568.0"
 
-"@cpmech/az-cdk@4.25.0":
-  version "4.25.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-4.25.0.tgz#fb028d074888b0679f1ec94413cdf1dadb6da6c2"
-  integrity sha512-ftGAV8VkiaEvFXwIoo1RRI+5snTrN5ZhK6ilJMfSE2lCfB5yeXw2WVJdOcVhL4UvSsfj6vFMXchDZ/caFuGT+w==
+"@cpmech/az-cdk@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-5.0.0.tgz#fa64a42df02bda04a517dbd0882e1511b11b2722"
+  integrity sha512-KdUU9N+Cw9hYTXoooFYIP6Ji6PdUBTUjXJch2Q1ruUonezTWxVYeNBGKxOirqjaiHqSwy/Jz+F65HJ7+KwNZYA==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.15.0"
     "@aws-cdk/aws-certificatemanager" "^1.15.0"
@@ -867,68 +867,68 @@
     "@aws-cdk/aws-sns-subscriptions" "^1.15.0"
     "@aws-cdk/aws-sqs" "^1.15.0"
     "@aws-cdk/core" "^1.15.0"
-    "@cpmech/az-cdk-crl" "^0.15.0"
-    "@cpmech/basic" "^2.16.0"
-    aws-sdk "^2.564.0"
+    "@cpmech/az-cdk-crl" "^1.0.0"
+    "@cpmech/basic" "^3.0.0"
+    aws-sdk "^2.568.0"
 
-"@cpmech/az-cognito@^0.19.0":
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-cognito/-/az-cognito-0.19.0.tgz#c3190ab1c69ad38142cf1eb93adf446f0d6a71a2"
-  integrity sha512-9v2bFUPPLCHpx7aNJ494AZNXmgcxLGNlRXcdsCMxeOH3FqyEMr15CiRebt7J722ypILKbDqR4aZErnhgoAqbQw==
+"@cpmech/az-cognito@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cognito/-/az-cognito-1.0.0.tgz#07c84b72c8748e0cc803abefe80999caa6f7835e"
+  integrity sha512-xQkWahGKFKALXxyAtjyIFd72QKmjfA3dmM0pXVXCEWtgUW1731z5EBleZwzBPEtEqeXxavSkg8zjUhDLrr/RuQ==
   dependencies:
-    "@cpmech/basic" "^2.16.0"
-    aws-sdk "^2.564.0"
+    "@cpmech/basic" "^3.0.0"
+    aws-sdk "^2.568.0"
 
-"@cpmech/az-dynamo@^1.23.0":
-  version "1.23.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-dynamo/-/az-dynamo-1.23.0.tgz#120ae9eebf9e888fef4240c96f6e287ee1551dda"
-  integrity sha512-hNbJn5GKYPru06EwY05Rl8muJMw9fmhh5WM1oZce2Px7XAM/9YwOrp12FOXLgKmWAdwpjmaFGuyI4Plmsl8YKQ==
+"@cpmech/az-dynamo@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-dynamo/-/az-dynamo-2.0.0.tgz#9f2d9e47112892eec92d16d279174b0b6483566c"
+  integrity sha512-omZd9k7uIsiws3H7EK+234RjLeTqZ7tRaDYpp+jj+1NrtjsgyAEDf3ELaw12DDyJOh4zOQbb8X05F4FzKovbng==
   dependencies:
-    "@cpmech/js2ts" "^0.18.0"
-    aws-sdk "^2.564.0"
+    "@cpmech/js2ts" "^1.0.0"
+    aws-sdk "^2.568.0"
 
-"@cpmech/az-lambda@^1.14.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-lambda/-/az-lambda-1.14.0.tgz#8b3b9a59a8d36840a10dcda23646c87d6279b216"
-  integrity sha512-UZmq+GUZPlYSJZG/zcdH5+sA+mYwHae0hhVRMKQyydGfyQsCKVoa0tBxMme27YMOLpshHYrGx3hco2ILOGNXLw==
+"@cpmech/az-lambda@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-lambda/-/az-lambda-2.0.0.tgz#8350545461206c39606eb43ab1ea56f2e2df9766"
+  integrity sha512-BlDCdKFzt+N0VwF9WRAQWAXU/BYD6Q1aQB0x3sCLVX0MfPAI/RUbyYOLiQSvTYhNzIQ5GpciJSHaS4WdYrDjEg==
   dependencies:
-    "@cpmech/httpcodes" "^1.13.0"
-    "@cpmech/js2ts" "^0.18.0"
-    "@types/aws-lambda" "^8.10.34"
-    aws-sdk "^2.564.0"
+    "@cpmech/httpcodes" "^2.0.0"
+    "@cpmech/js2ts" "^1.0.0"
+    "@types/aws-lambda" "^8.10.35"
+    aws-sdk "^2.568.0"
 
-"@cpmech/az-senqs@^1.16.0":
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-senqs/-/az-senqs-1.16.0.tgz#8ca4d439f10ccd45b1fc3acc21c2df93bc0efb94"
-  integrity sha512-zFDvD+JVxOevMBzVF7sjUspilu4rfRG52kJqgmtHK4+f8fCzyievw65ehj2bdQ7zbzvrSWTFUqWo2qGqOP0+Gg==
+"@cpmech/az-senqs@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-senqs/-/az-senqs-2.0.0.tgz#cce7c127f447d839acf066a614a12b2311d5437a"
+  integrity sha512-TsywaQJo/33oiduvMnh6ZsFlY7/a4lieV560diQcroheTtsYy9fGaXUQBuR5cGa5qQrhOrU1gJv9mbYOJKR5dg==
   dependencies:
-    "@cpmech/basic" "^2.16.0"
-    aws-sdk "^2.564.0"
+    "@cpmech/basic" "^3.0.0"
+    aws-sdk "^2.568.0"
     mailparser "^2.7.6"
 
-"@cpmech/basic@^2.16.0":
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/basic/-/basic-2.16.0.tgz#02bd993990d4689e423d948245548a382de0bbef"
-  integrity sha512-ryoiCQ+DqgcFjPeVSpoAhkERZIpNhx+whd8CxNCqCVBhD/fdlQ4VAkO8lLExYcfZJqQCXwUYXFxmGnpcJCMuAA==
+"@cpmech/basic@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/basic/-/basic-3.0.0.tgz#231f294cee3e13cc41214b1a8be65a59152f1200"
+  integrity sha512-lcXZg+DjEM+lSJjd/spCaDb3kOUEmdCLBJL9QW6IrLaterAVbj2aNp9A1Vwf2xPopEiPA9CnBLuTrGjWS8ph2A==
 
-"@cpmech/envars@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/envars/-/envars-0.13.0.tgz#b9923b4ae2b232f31677afe140173a8ffe302aae"
-  integrity sha512-FfiCRtkJgUGCEGDT4ZHw5lCtko1vHfbviit8Dc9mN8fOg+RgbYU4i/U2OCMWBWNY2q2W4JUmWnHJCbJGRCnzWg==
+"@cpmech/envars@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/envars/-/envars-1.0.0.tgz#5031ea8210c5e224a2a36aac48c17e1c26c805e6"
+  integrity sha512-5R1mHAzGz3XlG3xcfcBhpi0fAYwYZP4KPoM7UMvKfc4dWJvRkXCVlhXjA7sSm7WXvh7qVCWwnco+4VmRixnIGA==
   dependencies:
-    "@cpmech/basic" "^2.16.0"
+    "@cpmech/basic" "^3.0.0"
 
-"@cpmech/httpcodes@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/httpcodes/-/httpcodes-1.13.0.tgz#ee40b581df351815bb8c3829e38c40a5e8eb18f2"
-  integrity sha512-/B+hN0/++91+A0Vj4yPv8E3S68Pchw1eZ2Fz484Yj7e+nNAne/BBlYHztBNXHxKxWCBM4os21A7ZVlmv17jiOw==
+"@cpmech/httpcodes@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/httpcodes/-/httpcodes-2.0.0.tgz#50876ea27e8c43debe3ab23006ca708100bc5e7d"
+  integrity sha512-YEdSVzYqiRrchm58248p8TYI55Okcq8hPUbHCJSuqFM0N1Dl2kR8y5//ZXH1wpQPdmqTJUjKs//USkBVORgRIg==
   dependencies:
     rollup-plugin-terser "^5.1.2"
 
-"@cpmech/js2ts@^0.18.0":
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/js2ts/-/js2ts-0.18.0.tgz#5a04c2c3866ad5a24f65d97938dcd2d7e9ffa165"
-  integrity sha512-oirmTZJj57CCM7s/u6Qa8XbVuGm+K5n6eyqPcVBCLZnHWbum9vgDM/1YGknvHRJ6Vog/d06lliBn/+0jo6KTzA==
+"@cpmech/js2ts@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/js2ts/-/js2ts-1.0.0.tgz#5b7d8b43290dac6715d11548dc2266f079fea0a9"
+  integrity sha512-6b4+k5RFKAgSY8K+S2tc2qWHMqCDU0zZkoBBgoBRh/447+uHqdwHHPHcvU6nIAaCEC6HH3J1i9d0Hum4sJmZ4g==
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
@@ -1138,7 +1138,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/aws-lambda@^8.10.34":
+"@types/aws-lambda@^8.10.35":
   version "8.10.35"
   resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.35.tgz#f3e1f62fa865858728e706dcc8415dfd6d12894c"
   integrity sha512-2z7tI/cRpwQwx9eFFhnBgyJppQEkL3YZ+4PadhNcDuB5y+BmMY25h1N16WufdtMzOVK2WQYrLUGt6ajTzVBJUQ==
@@ -1848,7 +1848,7 @@ aws-sdk@2.518.0:
     uuid "3.3.2"
     xml2js "0.4.19"
 
-aws-sdk@^2.556.0, aws-sdk@^2.564.0:
+aws-sdk@^2.556.0, aws-sdk@^2.568.0:
   version "2.568.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.568.0.tgz#730a3897a08ceab8010f3f99119dc262bc6d06c3"
   integrity sha512-jPvhiJV2iLyWbJJDM01gvUCzeChWUeRMkIr6dsHu+leH2QnzvGNunTwMGculKE1jouXatajZEoA9bdqfosranw==

@@ -5,7 +5,12 @@ import Amplify from '@aws-amplify/core';
 import Auth from '@aws-amplify/auth';
 import { v4 } from 'uuid';
 import { deleteUser, findUser } from '@cpmech/az-cognito';
-import { deleteEmail, receiveEmail, extractCodeFromEmail } from '@cpmech/az-senqs';
+import {
+  deleteEmail,
+  receiveEmail,
+  extractCodeFromEmail,
+  extractSubjectAndMessage,
+} from '@cpmech/az-senqs';
 import { sleep } from '@cpmech/basic';
 import { initEnvars } from '@cpmech/envars';
 
@@ -90,6 +95,10 @@ describe('cognito', () => {
     sleep(1000);
     console.log('6: receive confirmation email');
     const rc = await receiveEmail(email, envars.EMAILS_QUEUE_URL);
-    console.log(rc.content);
+    const sm = await extractSubjectAndMessage(rc.content);
+    expect(sm).toEqual({
+      subject: 'Welcome to AZCDK!',
+      message: 'Your account has been created successfully\n',
+    });
   });
 });
