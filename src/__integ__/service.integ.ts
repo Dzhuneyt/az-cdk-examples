@@ -8,7 +8,7 @@ const envars = {
 
 initEnvars(envars);
 
-jest.setTimeout(10000);
+jest.setTimeout(100000);
 
 describe('API', () => {
   it('shoud access /open', async () => {

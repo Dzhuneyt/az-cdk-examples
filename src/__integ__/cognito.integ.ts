@@ -17,7 +17,7 @@ const envars = {
 
 initEnvars(envars);
 
-jest.setTimeout(20000);
+jest.setTimeout(100000);
 
 Amplify.configure({
   Auth: {

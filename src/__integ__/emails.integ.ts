@@ -9,7 +9,7 @@ const envars = {
 
 initEnvars(envars);
 
-jest.setTimeout(20000);
+jest.setTimeout(100000);
 
 describe('sendEmail, receiveEmail and deleteEmail', () => {
   test('works', async () => {
