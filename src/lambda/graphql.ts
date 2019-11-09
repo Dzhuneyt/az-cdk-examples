@@ -157,4 +157,9 @@ addResolveFunctionsToSchema({ schema, resolvers });
 
 const apollo = new ApolloServer({ schema });
 
-export const server = apollo.createHandler();
+export const server = apollo.createHandler({
+  cors: {
+    origin: true,
+    credentials: true,
+  },
+});
