@@ -17,6 +17,8 @@
     "array-type": [true, "array"],
     "semicolon": [true, "always", "ignore-bound-class-methods"],
     "object-literal-key-quotes": false,
-    "no-unused-expression": [true, "allow-new"]
+    "no-unused-expression": [true, "allow-new"],
+    "no-empty-interface": false,
+    "align": false
   }
 }

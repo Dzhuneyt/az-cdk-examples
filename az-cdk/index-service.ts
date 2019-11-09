@@ -33,7 +33,6 @@ const api = new LambdaApiConstruct(stack, 'API', {
       handlerName: 'server',
       httpMethods: ['POST'],
       route: 'graphql',
-      unprotected: true,
       accessDynamoTables: ['USERS'],
     },
   ],
