@@ -1,111 +1,48 @@
-import React from 'react';
-import Amplify, { Auth, Hub } from 'aws-amplify';
-import { OAuthButton } from 'components';
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth/lib-esm/types';
+import React, { useState, useEffect } from 'react';
+import { Router, Link } from '@reach/router';
+import { GateKeeper, MainMenu, init, gate } from 'gate';
+import { IconHouseThreeD } from '@cpmech/react-icons';
+import { Dashboard, Home, NotFound } from './pages';
 
-// your Cognito Hosted UI configuration
-const oauth = {
-  domain: 'azcdk.auth.us-east-1.amazoncognito.com',
-  scope: ['phone', 'email', 'profile', 'openid', 'aws.cognito.signin.user.admin'],
-  redirectSignIn: 'https://localhost:3000/',
-  redirectSignOut: 'https://localhost:3000/',
-  responseType: 'code', // or 'token', note that REFRESH token will only be generated when the responseType is code
+init(
+  'us-east-1_dCZGZU74z',
+  '5cdculovevq2kqdhj5forn2288',
+  'azcdk.auth.us-east-1.amazoncognito.com',
+  'https://localhost:3000/',
+  'https://localhost:3000/',
+);
+
+const entries = [
+  <Link key="link-to-dashboard" to="/dashboard">
+    <span>DASHBOARD</span>
+  </Link>,
+];
+
+export const App: React.FC = () => {
+  const [access, setAccess] = useState(false);
+
+  useEffect(() => {
+    setAccess(gate.access());
+    return gate.subscribe(() => setAccess(gate.access()), 'az-cdk-examples-App');
+  }, []);
+
+  return (
+    <React.Fragment>
+      <GateKeeper />
+      <MainMenu
+        NarrowLogoIcon={IconHouseThreeD}
+        WideLogoIcon={IconHouseThreeD}
+        wideLogoWidth={60}
+        narrowMiddleEntries={entries}
+        wideMiddleEntries={entries}
+      />
+      {access && (
+        <Router>
+          <Home path="/" />
+          <Dashboard path="/dashboard" />
+          <NotFound default />
+        </Router>
+      )}
+    </React.Fragment>
+  );
 };
-
-Amplify.configure({
-  Auth: {
-    region: 'us-east-1',
-    userPoolId: 'us-east-1_dCZGZU74z',
-    userPoolWebClientId: '5cdculovevq2kqdhj5forn2288',
-    // userPoolId: 'us-east-1_tl5SLxSyb',
-    // userPoolWebClientId: '3skmgvtqjbv8a3lf6qbjav4af6',
-  },
-});
-
-Auth.configure({ oauth });
-
-interface IState {
-  authState: string;
-  authData: any;
-  authError: any;
-}
-
-export class App extends React.Component<{}, IState> {
-  state = {
-    authState: 'loading',
-    authData: null,
-    authError: null,
-  };
-
-  constructor(props: any) {
-    super(props);
-    this.signOut = this.signOut.bind(this);
-
-    // let the Hub module listen on Auth events
-    Hub.listen('auth', data => {
-      console.log('... something is happening ...', data);
-      switch (data.payload.event) {
-        case 'signIn':
-          this.setState({ authState: 'signedIn', authData: data.payload.data });
-          break;
-        case 'signIn_failure':
-          this.setState({ authState: 'signIn', authData: null, authError: data.payload.data });
-          break;
-        default:
-          break;
-      }
-    });
-  }
-
-  componentDidMount() {
-    console.log('on component mount');
-    // check the current user when the App component is loaded
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        console.log(user);
-        this.setState({ authState: 'signedIn' });
-      })
-      .catch(e => {
-        console.log(e);
-        this.setState({ authState: 'signIn' });
-      });
-  }
-
-  signOut() {
-    Auth.signOut()
-      .then(() => {
-        this.setState({ authState: 'signIn' });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
-  handleFacebookLogin = async () => {
-    const res = await Auth.federatedSignIn({
-      provider: CognitoHostedUIIdentityProvider.Facebook,
-    });
-    console.log(res);
-  };
-
-  handleGoogleLogin = async () => {
-    const res = await Auth.federatedSignIn({
-      provider: CognitoHostedUIIdentityProvider.Google,
-    });
-    console.log(res);
-  };
-
-  render() {
-    const { authState } = this.state;
-    return (
-      <div className="App">
-        {authState === 'loading' && <div>loading...</div>}
-        {authState === 'signIn' && <OAuthButton />}
-        {authState === 'signedIn' && <button onClick={this.signOut}>Sign out</button>}
-        <button onClick={this.handleFacebookLogin}>Facebook</button>
-        <button onClick={this.handleGoogleLogin}>Google</button>
-        <button onClick={() => Auth.signOut()}>Sign Out</button>
-      </div>
-    );
-  }
-}

@@ -1,11 +1,26 @@
 import React from 'react';
+/** @jsx jsx */ import { jsx, css } from '@emotion/core';
 import { RouteComponentProps } from '@reach/router';
 
 interface IHomeProps extends RouteComponentProps {}
 
 export const Home: React.FC<IHomeProps> = () => {
   return (
-    <div>
+    <div
+      css={css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 500px;
+        width: 100%;
+        font-size: 150%;
+        color: #343434;
+        background-color: #bde0fc;
+        p {
+          margin: 100px 100px;
+        }
+      `}
+    >
       <p>HOME</p>
     </div>
   );

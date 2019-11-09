@@ -1049,15 +1049,20 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cpmech/rcomps@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/rcomps/-/rcomps-1.12.0.tgz#494d6b740796d65bf198bb21b48f76c67e81c42a"
-  integrity sha512-btOqNMs/7TRFZLuBQMMxLXnib3f/4B3LiGRc/JlnlaOY0QLU88ZhQ+qHnebKWAl1hYsIWwpLAQmzQ+owp7YpAw==
+"@cpmech/gate@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/gate/-/gate-0.2.0.tgz#6bb7978428cfbc2a635f14b4696e0f25a731b2e5"
+  integrity sha512-UvFkLsztIM2NCpTqcxMy9sb7xkJmCtqtPnPyB5K5YggQB2IcS6lyO4EzqirbOS2QXAAM/Q/30Ion+qGgRGikuA==
 
-"@cpmech/react-icons@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/react-icons/-/react-icons-2.4.0.tgz#2035dce9fd378cb5b4f1e08b6aedfd9c0612596b"
-  integrity sha512-2+DiDkYFfdY6z/SbWXa+6+1EDd4Uww02LAwH2giKgblG7/AybHHfvrVOLRrhA/0oO1b8sgW4p4/Zxh8kOO52pA==
+"@cpmech/rcomps@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/rcomps/-/rcomps-1.15.0.tgz#ae4dfa59f31bd1cc001654ccd9854ed59f3ab7d6"
+  integrity sha512-vQ7UQIJLabgSxok1mEuqJkaqZmEnWlt98oJA1yXwdesuHenAd+ehB/uc/6s8oZXl4wRvOF3JcnCE/E511FLlDw==
+
+"@cpmech/react-icons@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@cpmech/react-icons/-/react-icons-2.7.0.tgz#ade43c304f7f28c4ae958da98330c4fda276e056"
+  integrity sha512-dcPMo0RvkJWu8SmoxY5v2Ojzeq4BgTuUFh0/6F94bc0kNtbw7yz2BaKIlmQFNpIm+TWNr5mShozB0aCwiEjV0w==
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
@@ -1580,10 +1585,15 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*", "@types/node@12.12.6":
+"@types/node@*":
   version "12.12.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.6.tgz#a47240c10d86a9a57bb0c633f0b2e0aea9ce9253"
   integrity sha512-FjsYUPzEJdGXjwKqSpE0/9QEh6kzhTAeObA54rn6j3rR4C/mzpI9L0KNfoeASSPMMdxIsoJuCLDWcM/rVjIsSA==
+
+"@types/node@12.12.7":
+  version "12.12.7"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.7.tgz#01e4ea724d9e3bd50d90c11fd5980ba317d8fa11"
+  integrity sha512-E6Zn0rffhgd130zbCbAr/JdXfXkoOUFAKNs/rF8qnafSJ8KYaA/j3oz7dcwal+lYjLA7xvdd5J4wdYpCTlP8+w==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1608,10 +1618,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-dom@16.9.3":
-  version "16.9.3"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.3.tgz#4006ff0e13958af91313869077c04cb20d9b9d04"
-  integrity sha512-FUuZKXPr9qlzUT9lhuzrZgLjH63TvNn28Ch3MvKG4B+F52zQtO8DtE0Opbncy3xaucNZM2WIPfuNTgkbKx5Brg==
+"@types/react-dom@16.9.4":
+  version "16.9.4"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.9.4.tgz#0b58df09a60961dcb77f62d4f1832427513420df"
+  integrity sha512-fya9xteU/n90tda0s+FtN5Ym4tbgxpq/hb/Af24dvs6uYnYn+fspaxw5USlw0R8apDNwxsqumdRoCoKitckQqw==
   dependencies:
     "@types/react" "*"
 
@@ -4234,10 +4244,10 @@ eslint-plugin-import@2.18.2:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jest@^23.0.2:
-  version "23.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.0.2.tgz#54a59bfe77245186afe13711a297067aefefff0a"
-  integrity sha512-fkxcvOJm0hC/jbJqYJjtuC9mvpTJqXd0Nixx7joVQvJoBQuXk/ws3+MtRYzD/4TcKSgvr21uuSLdwSxKJKC2cg==
+eslint-plugin-jest@^23.0.3:
+  version "23.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-23.0.3.tgz#d3f157f7791f97713372c13259ba1dfc436eb4c1"
+  integrity sha512-9cNxr66zeOyz1S9AkQL4/ouilR6QHpYj8vKOQZ60fu9hAt5PJWS4KqWqfr1aqN5NFEZSPjFOla2Azn+KTWiGwg==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -8958,10 +8968,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.18.2:
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
-  integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
+prettier@^1.19.0:
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.0.tgz#3bec4489d5eebcd52b95ddd2c22467b5c852fde1"
+  integrity sha512-GlAIjk6DjkNT6u/Bw5QCWrbzh9YlLKwwmJT//1YiCR3WDpZDnyss64aXHQZgF8VKeGlWnX6+tGsKSVxsZT/gtA==
 
 pretty-bytes@^5.1.0:
   version "5.3.0"
