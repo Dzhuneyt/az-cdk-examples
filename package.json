@@ -86,6 +86,7 @@
     "@cpmech/httpcodes": "^1.13.0",
     "@cpmech/js2ts": "^0.18.0",
     "aws-cdk": "^1.15.0",
+    "aws-sdk": "^2.568.0",
     "install": "^0.13.0"
   }
 }

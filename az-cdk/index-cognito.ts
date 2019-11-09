@@ -11,7 +11,7 @@ const stackName = `${config.appName}-${envars.STAGE}-cognito`;
 
 const stack = new Stack(app, stackName);
 
-const poolName = 'dear-users';
+const poolName = `${config.appName}-${envars.STAGE}-users`;
 
 const layer = new LayerVersion(stack, 'CommonLibs', {
   code: Code.fromAsset('layers'),
@@ -23,7 +23,7 @@ const layer = new LayerVersion(stack, 'CommonLibs', {
 const postConfirm = new Function(stack, 'PostConfirmation', {
   runtime: Runtime.NODEJS_10_X,
   code: Code.fromAsset('dist'),
-  handler: `cgPostConfirm.postConfirm`,
+  handler: `cognitoPostConfirm.postConfirmation`,
   layers: [layer],
 });
 
