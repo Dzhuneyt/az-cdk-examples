@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { request } from 'graphql-request';
 import { initEnvars } from '@cpmech/envars';
 
 const envars = {
@@ -30,47 +29,47 @@ describe('API', () => {
     expect(message).toBe('Request failed with status code 401');
   });
 
-  it('should return the version using the route /graphql', async () => {
-    const res = await axios.post(`${envars.API_URL}/graphql`, { query: '{ version }' });
-    expect(res.status).toBe(200);
-    expect(res.data).toEqual({
-      data: {
-        version: 'v0.1.0',
-      },
-    });
-  });
+  // it('should return the version using the route /graphql', async () => {
+  //   const res = await axios.post(`${envars.API_URL}/graphql`, { query: '{ version }' });
+  //   expect(res.status).toBe(200);
+  //   expect(res.data).toEqual({
+  //     data: {
+  //       version: 'v0.1.0',
+  //     },
+  //   });
+  // });
 
-  it('should create user using the route /graphql', async () => {
-    const res = await request(
-      `${envars.API_URL}/graphql`,
-      `
-      mutation SetAccess($input:AccessInput!) {
-        setAccess(input:$input) {
-          userId
-          aspect
-          email
-          confirmed
-        }
-      }
-    `,
-      {
-        input: {
-          userId: '123-test-123',
-          aspect: 'ACCESS',
-          email: 'just.testing@this.com',
-          confirmed: true,
-        },
-      },
-    );
-    expect(res).toEqual({
-      setAccess: {
-        userId: '123-test-123',
-        aspect: 'ACCESS',
-        email: 'just.testing@this.com',
-        confirmed: true,
-      },
-    });
-  });
+  // it('should create user using the route /graphql', async () => {
+  //   const res = await request(
+  //     `${envars.API_URL}/graphql`,
+  //     `
+  //     mutation SetAccess($input:AccessInput!) {
+  //       setAccess(input:$input) {
+  //         userId
+  //         aspect
+  //         email
+  //         confirmed
+  //       }
+  //     }
+  //   `,
+  //     {
+  //       input: {
+  //         userId: '123-test-123',
+  //         aspect: 'ACCESS',
+  //         email: 'just.testing@this.com',
+  //         confirmed: true,
+  //       },
+  //     },
+  //   );
+  //   expect(res).toEqual({
+  //     setAccess: {
+  //       userId: '123-test-123',
+  //       aspect: 'ACCESS',
+  //       email: 'just.testing@this.com',
+  //       confirmed: true,
+  //     },
+  //   });
+  // });
 });
 
 describe('API (using customDomain)', () => {

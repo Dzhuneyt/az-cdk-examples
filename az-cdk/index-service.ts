@@ -1,5 +1,5 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
-import { LambdaApiConstruct, LambdaLayersConstruct } from '@cpmech/az-cdk';
+import { LambdaApiConstruct } from '@cpmech/az-cdk';
 import { envars } from './envars';
 import { config } from './config';
 
@@ -36,7 +36,7 @@ const api = new LambdaApiConstruct(stack, 'API', {
       accessDynamoTables: ['USERS'],
     },
   ],
-  layers: new LambdaLayersConstruct(stack, 'Layers'),
+  useLayers: true,
   customDomain: {
     prefixedDomain: `api-dev.${envars.WEBSITE_DOMAIN}`,
     certificateArn: envars.WEBSITE_CERTIFICATE_ARN,

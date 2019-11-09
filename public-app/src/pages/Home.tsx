@@ -25,3 +25,10 @@ export const Home: React.FC<IHomeProps> = () => {
     </div>
   );
 };
+
+// private async getAuthorizationHeader() {
+// const session = await this.auth.currentSession();
+// either id token or access token based on the API
+// const idToken = session.getIdToken().getJwtToken();
+// return {Authorization: idToken}
+// }

@@ -2,7 +2,7 @@ import AWS from 'aws-sdk';
 import { ILambdaCognito, IEventCognito } from '@cpmech/az-lambda';
 import { sendEmail } from '@cpmech/az-senqs';
 
-export const postConfirmation: ILambdaCognito = async (event: IEventCognito): Promise<any> => {
+export const handler: ILambdaCognito = async (event: IEventCognito): Promise<any> => {
   const { email, userName } = event.request.userAttributes;
   console.log('>>> event = ', event);
 
