@@ -86,5 +86,10 @@ describe('cognito', () => {
     console.log('5: signing in');
     const user = await Auth.signIn({ username, password });
     expect(user.attributes.email_verified).toBe(true);
+
+    sleep(1000);
+    console.log('6: receive confirmation email');
+    const rc = await receiveEmail(email, envars.EMAILS_QUEUE_URL);
+    console.log(rc.content);
   });
 });

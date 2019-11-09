@@ -15,7 +15,7 @@ new WebsitePipelineStack(app, stackName, {
   websiteBucketName: `app.${envars.WEBSITE_DOMAIN}-app`,
   cloudfrontDistributionId: envars.WEBSITE_CLOUDFRONT_ID,
   notificationEmails: envars.PIPELINE_NOTIFICATION_EMAILS.split(','),
-  assetsDir: 'public-app',
+  assetsDir: 'public-app/build',
   githubSecret,
   envars,
 });
