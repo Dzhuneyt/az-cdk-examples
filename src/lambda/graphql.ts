@@ -159,7 +159,7 @@ const apollo = new ApolloServer({ schema });
 
 export const server = apollo.createHandler({
   cors: {
-    origin: true,
+    origin: '*',
     credentials: true,
   },
 });
