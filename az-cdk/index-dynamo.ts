@@ -12,12 +12,12 @@ const stack = new Stack(app, stackName);
 const construct = new DynamoConstruct(stack, 'Dynamo', {
   dynamoTables: [
     {
-      name: 'PARAMS',
+      name: `${envars.TABLE_PARAMS_PREFIX}-${envars.STAGE.toUpperCase()}`,
       partitionKey: 'category',
       sortKey: 'key',
     },
     {
-      name: 'USERS',
+      name: `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`,
       partitionKey: 'userId',
       sortKey: 'aspect',
     },

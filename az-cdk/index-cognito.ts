@@ -11,6 +11,8 @@ const stack = new Stack(app, stackName);
 
 const poolName = `${config.appName}-${envars.STAGE}-users`;
 
+const usersTable = `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
+
 const construct = new CognitoConstruct(stack, 'Cognito', {
   emailSendingAccount: `tester@${envars.EMAILS_DOMAIN}`,
   poolName,
@@ -22,9 +24,10 @@ const construct = new CognitoConstruct(stack, 'Cognito', {
   logoutUrls: [`https://app.${envars.WEBSITE_DOMAIN}/`, `https://localhost:3000/`],
   postConfirmTrigger: true,
   postConfirmSendEmail: true,
-  postConfirmDynamoTable: 'USERS',
+  postConfirmDynamoTable: usersTable,
   useLayers: true,
   updateClientSettings: true,
+  envars,
 });
 
 new CfnOutput(stack, 'PoolId', { value: construct.poolId });

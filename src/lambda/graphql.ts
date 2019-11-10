@@ -5,17 +5,31 @@ import { ApolloServer } from 'apollo-server-lambda';
 import { ErrorBadRequest, ErrorInternal } from '@cpmech/httpcodes';
 import { get, exists, update } from '@cpmech/az-dynamo';
 import { any2type } from '@cpmech/js2ts';
+import { initEnvars } from '@cpmech/envars';
+import { newAccess } from './types';
+
+const envars = {
+  STAGE: '', // 'dev' or 'pro'
+  DEFAULT_USER_GROUP: '',
+  TABLE_USERS_PREFIX: '',
+};
+
+initEnvars(envars);
 
 const astAccess: DocumentNode = gql`
   enum Aspect {
     ACCESS
   }
 
+  enum RoleOfUser {
+    TRAVELLER
+  }
+
   type Access {
     userId: ID!
     aspect: Aspect!
+    role: RoleOfUser!
     email: String!
-    confirmed: Boolean!
   }
 
   extend type Query {
@@ -25,28 +39,14 @@ const astAccess: DocumentNode = gql`
   input AccessInput {
     userId: ID!
     aspect: Aspect
+    role: RoleOfUser
     email: String
-    confirmed: Boolean
   }
 
   extend type Mutation {
     setAccess(input: AccessInput!): Access!
   }
 `;
-
-interface IAccess {
-  userId: string;
-  aspect: 'ACCESS';
-  email: string;
-  confirmed: boolean;
-}
-
-const newAccess = (): IAccess => ({
-  userId: '',
-  aspect: 'ACCESS',
-  email: '',
-  confirmed: false,
-});
 
 const refData = newAccess();
 

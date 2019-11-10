@@ -17,6 +17,7 @@ import { initEnvars } from '@cpmech/envars';
 const envars = {
   USER_POOL_ID: '',
   USER_POOL_CLIENT_ID: '',
+  DEFAULT_USER_GROUP: '',
   EMAILS_QUEUE_URL: '',
 };
 
@@ -108,6 +109,6 @@ Enjoy!
     console.log('8: checking group');
     const payload = await decodePayload(user);
     console.log(payload);
-    expect(payload['cognito:groups']).toEqual(['travellers']);
+    expect(payload['cognito:groups']).toEqual([envars.DEFAULT_USER_GROUP]);
   });
 });
