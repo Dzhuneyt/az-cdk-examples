@@ -21,12 +21,9 @@ export const Home: React.FC<IHomeProps> = () => {
         headers: {
           authorization: `Bearer ${idToken}`,
         },
-        credentials: 'include',
-        mode: 'cors',
       });
       const res = await client.request(text);
-      console.log(res);
-      setResults(res);
+      setResults(JSON.stringify(res, undefined, 2));
     } catch (error) {
       alert(JSON.stringify(error));
     }

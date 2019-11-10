@@ -5,9 +5,9 @@ import { IconHouseThreeD } from '@cpmech/react-icons';
 import { Dashboard, Home, NotFound } from './pages';
 
 init(
-  'us-east-1_dCZGZU74z',
-  '5cdculovevq2kqdhj5forn2288',
-  'azcdk.auth.us-east-1.amazoncognito.com',
+  process.env.REACT_APP_USER_POOL_ID || '',
+  process.env.REACT_APP_USER_POOL_CLIENT_ID || '',
+  'azcdk-xyz.auth.us-east-1.amazoncognito.com',
   'https://localhost:3000/',
   'https://localhost:3000/',
 );
