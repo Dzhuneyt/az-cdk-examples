@@ -51,5 +51,3 @@ export const cfg = {
   websiteBucketName: `${envars.WEBSITE_DOMAIN}-website`,
   appWebsiteBucketName: `app.${envars.WEBSITE_DOMAIN}-app`,
 };
-
-console.log('\ncfg =\n', cfg, '\n');
