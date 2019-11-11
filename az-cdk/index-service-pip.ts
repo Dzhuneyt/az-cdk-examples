@@ -1,13 +1,11 @@
 import { App } from '@aws-cdk/core';
 import { PipelineStack, ssmSecret } from '@cpmech/az-cdk';
-import { envars } from './envars';
+import { envars, cfg } from './envars';
 import { config } from './config';
 
 const app = new App();
 
-const stackName = `${config.appName}-${envars.STAGE}-service-pip`;
-
-new PipelineStack(app, stackName, {
+new PipelineStack(app, `${cfg.prefix}-service-pip`, {
   githubRepo: config.githubRepo,
   githubUser: config.githubUser,
   githubSecret: ssmSecret(config.ssmParamGithub),

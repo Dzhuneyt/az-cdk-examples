@@ -1,22 +1,17 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { ReceiveEmailSQSConstruct } from '@cpmech/az-cdk';
 import { email2key } from '@cpmech/basic';
-import { envars } from './envars';
-import { config } from './config';
+import { cfg } from './envars';
 
 const app = new App();
 
-const stackName = `${config.appName}-${envars.STAGE}-emails`;
-
-const stack = new Stack(app, stackName);
-
-const emails = [`admin@${envars.EMAILS_DOMAIN}`, `tester@${envars.EMAILS_DOMAIN}`];
+const stack = new Stack(app, `${cfg.prefix}-emails`);
 
 new ReceiveEmailSQSConstruct(stack, 'EmailSQS', {
-  emails,
+  emails: cfg.receiverEmails,
 });
 
-emails.forEach(email => {
+cfg.receiverEmails.forEach(email => {
   const topic = email2key(email);
   new CfnOutput(stack, `Q-${topic}`, {
     value: `https://sqs.us-east-1.amazonaws.com/${stack.account}/${topic}`,

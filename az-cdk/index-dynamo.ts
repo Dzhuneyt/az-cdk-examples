@@ -1,23 +1,20 @@
 import { App, Stack } from '@aws-cdk/core';
 import { DynamoConstruct } from '@cpmech/az-cdk';
-import { envars } from './envars';
-import { config } from './config';
+import { cfg } from './envars';
 
 const app = new App();
 
-const stackName = `${config.appName}-${envars.STAGE}-dynamo`;
+const stack = new Stack(app, `${cfg.prefix}-dynamo`);
 
-const stack = new Stack(app, stackName);
-
-const construct = new DynamoConstruct(stack, 'Dynamo', {
+new DynamoConstruct(stack, 'Dynamo', {
   dynamoTables: [
     {
-      name: `${envars.TABLE_PARAMS_PREFIX}-${envars.STAGE.toUpperCase()}`,
+      name: cfg.tableParams,
       partitionKey: 'category',
       sortKey: 'key',
     },
     {
-      name: `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`,
+      name: cfg.tableUsers,
       partitionKey: 'userId',
       sortKey: 'aspect',
     },

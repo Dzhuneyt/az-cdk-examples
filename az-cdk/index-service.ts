@@ -1,18 +1,13 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { LambdaApiConstruct } from '@cpmech/az-cdk';
-import { envars } from './envars';
-import { config } from './config';
+import { envars, cfg } from './envars';
 
 const app = new App();
 
-const stackName = `${config.appName}-${envars.STAGE}-service`;
-
-const gatewayName = `${config.appName}-${envars.STAGE}-api`;
-
-const stack = new Stack(app, stackName);
+const stack = new Stack(app, `${cfg.prefix}-service`);
 
 const api = new LambdaApiConstruct(stack, 'API', {
-  gatewayName,
+  gatewayName: cfg.gatewayName,
   cognitoId: envars.USER_POOL_ID,
   lambdas: [
     {

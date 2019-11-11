@@ -1,4 +1,4 @@
-import { makeCognitoPostConfirmHandler } from '@cpmech/az-cdk';
+import { makeCognitoPostConfirmHandler } from '@cpmech/az-lambda';
 import { initEnvars } from '@cpmech/envars';
 
 const envars = {

@@ -1,13 +1,10 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { WebsiteConstruct } from '@cpmech/az-cdk';
-import { envars } from './envars';
-import { config } from './config';
+import { envars, cfg } from './envars';
 
 const app = new App();
 
-const stackName = `${config.appName}-${envars.STAGE}-app`;
-
-const stack = new Stack(app, stackName);
+const stack = new Stack(app, `${cfg.prefix}-app`);
 
 const website = new WebsiteConstruct(stack, 'App', {
   domain: envars.WEBSITE_DOMAIN,
