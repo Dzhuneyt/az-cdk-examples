@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 (global as any).fetch = fetch;
 
 import Amplify from '@aws-amplify/core';
+import Auth from '@aws-amplify/auth';
 import { GraphQLClient } from 'graphql-request';
 import { initEnvars } from '@cpmech/envars';
 
@@ -9,6 +10,8 @@ const envars = {
   API_URL: '',
   USER_POOL_ID: '',
   USER_POOL_CLIENT_ID: '',
+  TESTER_USER_PASSWORD: '',
+  WEBSITE_DOMAIN: '',
 };
 
 initEnvars(envars);
@@ -82,5 +85,13 @@ describe('graphql', () => {
           },
         }),
     );
+  });
+
+  it.only('should return Access data', async () => {
+    const email = `tester@${envars.WEBSITE_DOMAIN}`;
+    const password = envars.TESTER_USER_PASSWORD;
+    const user = await Auth.signIn({ username: email, password });
+
+    console.log(user);
   });
 });

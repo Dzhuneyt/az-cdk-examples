@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 import { sendEmail, receiveEmail, deleteEmail, extractCodeFromEmail } from '@cpmech/az-senqs';
+import { sleep } from '@cpmech/basic';
 import { initEnvars } from '@cpmech/envars';
 
 const envars = {
@@ -20,6 +21,7 @@ describe('sendEmail, receiveEmail and deleteEmail', () => {
     await sendEmail(sender, [receiver], 'CODE', 'Key = 123-456');
 
     console.log('2: receiving email');
+    await sleep(1500);
     const res = await receiveEmail(receiver, envars.EMAILS_QUEUE_URL, 'us-east-1', 5);
 
     console.log('3: extracting code from email');

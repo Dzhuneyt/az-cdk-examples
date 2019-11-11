@@ -69,7 +69,7 @@ describe('cognito', () => {
     expect(res.userConfirmed).toBe(false);
 
     console.log('2: receiving email');
-    await sleep(2000);
+    await sleep(3000);
     const r = await receiveEmail(email, envars.EMAILS_QUEUE_URL);
     const emailReceiptHandle = r.receiptHandle;
 
@@ -91,7 +91,7 @@ describe('cognito', () => {
     expect(user.attributes.email_verified).toBe(true);
 
     console.log('7: receiving confirmation email');
-    await sleep(2000);
+    await sleep(3000);
     const rc = await receiveEmail(email, envars.EMAILS_QUEUE_URL);
     const sm = await extractSubjectAndMessage(rc.content);
     expect(sm).toEqual({

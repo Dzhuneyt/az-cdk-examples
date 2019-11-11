@@ -1,5 +1,6 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { CognitoConstruct } from '@cpmech/az-cdk';
+import { IUserInput } from '@cpmech/az-cognito';
 import { envars } from './envars';
 import { config } from './config';
 
@@ -13,9 +14,18 @@ const poolName = `${config.appName}-${envars.STAGE}-users`;
 
 const usersTable = `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
 
+const users: IUserInput[] = [
+  {
+    email: `tester@${envars.WEBSITE_DOMAIN}`,
+    password: envars.TESTER_USER_PASSWORD,
+    groups: 'testers',
+  },
+];
+
 const construct = new CognitoConstruct(stack, 'Cognito', {
   emailSendingAccount: `tester@${envars.EMAILS_DOMAIN}`,
   poolName,
+  users,
   facebookClientId: envars.FACEBOOK_CLIENT_ID,
   facebookClientSecret: envars.FACEBOOK_CLIENT_SECRET,
   googleClientId: envars.GOOGLE_CLIENT_ID,
