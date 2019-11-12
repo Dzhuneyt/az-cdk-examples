@@ -4,10 +4,10 @@ import { envars, cfg } from './envars';
 
 const app = new App();
 
-const stack = new Stack(app, `${cfg.prefix}-1-cognito`);
+const stack = new Stack(app, `${cfg.prefix}-cognito`);
 
 const construct = new CognitoConstruct(stack, 'Cognito', {
-  poolName: cfg.poolName + '-1',
+  poolName: cfg.poolName,
   emailSendingAccount: cfg.senderEmail,
   domainPrefix: envars.USER_POOL_DOMAIN_PREFIX,
   facebookClientId: envars.FACEBOOK_CLIENT_ID,
@@ -16,7 +16,7 @@ const construct = new CognitoConstruct(stack, 'Cognito', {
   googleClientSecret: envars.GOOGLE_CLIENT_SECRET,
   callbackUrls: [cfg.appUrl, `https://localhost:3000/`],
   logoutUrls: [cfg.appUrl, `https://localhost:3000/`],
-  postConfirmTrigger: false,
+  postConfirmTrigger: true,
   postConfirmSendEmail: true,
   postConfirmDynamoTable: cfg.tableUsers,
   useLayers: true,

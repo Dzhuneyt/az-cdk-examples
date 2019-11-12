@@ -4,10 +4,14 @@ import { GateKeeper, MainMenu, init, gate } from 'gate';
 import { IconHouseThreeD } from '@cpmech/react-icons';
 import { Dashboard, Home, NotFound } from './pages';
 
+const poolId = process.env.REACT_APP_USER_POOL_ID || '';
+const clientId = process.env.REACT_APP_USER_POOL_CLIENT_ID || '';
+const domainPrefix = process.env.REACT_APP_USER_POOL_DOMAIN_PREFIX || '';
+
 init(
-  process.env.REACT_APP_USER_POOL_ID || '',
-  process.env.REACT_APP_USER_POOL_CLIENT_ID || '',
-  'azcdk-xyz.auth.us-east-1.amazoncognito.com',
+  poolId,
+  clientId,
+  `${domainPrefix}.auth.us-east-1.amazoncognito.com`,
   'https://localhost:3000/',
   'https://localhost:3000/',
 );
