@@ -13,7 +13,6 @@
     "apollo-server-lambda": "^2.9.7",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
-    "install": "^0.13.0",
     "mailparser": "^2.7.6"
   }
 }
