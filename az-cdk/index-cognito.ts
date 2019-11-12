@@ -1,35 +1,25 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { CognitoConstruct } from '@cpmech/az-cdk';
-import { IUserInput } from '@cpmech/az-cognito';
 import { envars, cfg } from './envars';
 
 const app = new App();
 
-const stack = new Stack(app, `${cfg.prefix}-cognito`);
-
-const users: IUserInput[] = [
-  {
-    email: cfg.testerEmail,
-    password: envars.TESTER_USER_PASSWORD,
-    groups: 'testers',
-  },
-];
+const stack = new Stack(app, `${cfg.prefix}-1-cognito`);
 
 const construct = new CognitoConstruct(stack, 'Cognito', {
-  users,
-  poolName: cfg.poolName,
+  poolName: cfg.poolName + '-1',
   emailSendingAccount: cfg.senderEmail,
+  domainPrefix: envars.USER_POOL_DOMAIN_PREFIX,
   facebookClientId: envars.FACEBOOK_CLIENT_ID,
   facebookClientSecret: envars.FACEBOOK_CLIENT_SECRET,
   googleClientId: envars.GOOGLE_CLIENT_ID,
   googleClientSecret: envars.GOOGLE_CLIENT_SECRET,
   callbackUrls: [cfg.appUrl, `https://localhost:3000/`],
   logoutUrls: [cfg.appUrl, `https://localhost:3000/`],
-  postConfirmTrigger: true,
+  postConfirmTrigger: false,
   postConfirmSendEmail: true,
   postConfirmDynamoTable: cfg.tableUsers,
   useLayers: true,
-  updateClientSettings: true,
   envars,
 });
 

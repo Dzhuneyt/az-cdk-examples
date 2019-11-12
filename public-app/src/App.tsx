@@ -23,7 +23,10 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     setAccess(gate.access());
-    return gate.subscribe(() => setAccess(gate.access()), 'az-cdk-examples-App');
+    return gate.subscribe(() => {
+      console.log(gate.state.user);
+      setAccess(gate.access());
+    }, 'az-cdk-examples-App');
   }, []);
 
   return (
