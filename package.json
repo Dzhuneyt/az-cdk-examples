@@ -9,6 +9,7 @@
   },
   "repository": "cpmech/az-cdk",
   "scripts": {
+    "addTester": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/createTesterUser.ts --resolveJsonModule",
     "preinstall": "cd layers/nodejs/ && npm install",
     "cdk": "bash ./scripts/cdk.bash",
     "build": "rm -rf dist && rollup --config rollup.config-lambda.js",
