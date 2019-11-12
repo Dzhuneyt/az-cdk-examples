@@ -5,16 +5,7 @@ import { ApolloServer } from 'apollo-server-lambda';
 import { ErrorBadRequest, ErrorInternal } from '@cpmech/httpcodes';
 import { get, exists, update } from '@cpmech/az-dynamo';
 import { any2type } from '@cpmech/js2ts';
-import { initEnvars } from '@cpmech/envars';
 import { newAccess } from './types';
-
-const envars = {
-  STAGE: '', // 'dev' or 'pro'
-  DEFAULT_USER_GROUP: '',
-  TABLE_USERS_PREFIX: '',
-};
-
-initEnvars(envars);
 
 const astAccess: DocumentNode = gql`
   enum Aspect {

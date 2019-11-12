@@ -52,4 +52,5 @@ export const cfg = {
   gatewayName: `${app}-${envars.STAGE}-api`,
   websiteBucketName: `${envars.WEBSITE_DOMAIN}-website`,
   appWebsiteBucketName: `app.${envars.WEBSITE_DOMAIN}-app`,
+  apiDomain: `api-${envars.STAGE}.${envars.WEBSITE_DOMAIN}`,
 };

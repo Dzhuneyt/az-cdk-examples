@@ -33,7 +33,7 @@ const api = new LambdaApiConstruct(stack, 'API', {
   ],
   useLayers: true,
   customDomain: {
-    prefixedDomain: `api-dev.${envars.WEBSITE_DOMAIN}`,
+    prefixedDomain: cfg.apiDomain,
     certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
     r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
   },
