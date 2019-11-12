@@ -4,8 +4,18 @@ import { addResolveFunctionsToSchema } from 'graphql-tools';
 import { ApolloServer } from 'apollo-server-lambda';
 import { ErrorBadRequest, ErrorInternal } from '@cpmech/httpcodes';
 import { get, exists, update } from '@cpmech/az-dynamo';
+import { initEnvars } from '@cpmech/envars';
 import { any2type } from '@cpmech/js2ts';
 import { newAccess } from './types';
+
+const envars = {
+  STAGE: '', // 'dev' or 'pro'
+  TABLE_USERS_PREFIX: '',
+};
+
+initEnvars(envars);
+
+const tableUsers = `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
 
 const astAccess: DocumentNode = gql`
   enum Aspect {
@@ -13,7 +23,7 @@ const astAccess: DocumentNode = gql`
   }
 
   enum RoleOfUser {
-    TRAVELLER
+    READER
   }
 
   type Access {
@@ -46,6 +56,8 @@ const resolvers = {
     version: (source: any, args: any, context: any, info: any) => 'v0.1.0',
 
     access: async (source: any, args: any, context: any, info: any) => {
+      console.log('.... .... .... access called .... .... ....');
+
       // extract userId
       const { userId } = args;
 
@@ -57,11 +69,15 @@ const resolvers = {
       // DynamoDB primary key
       const primaryKey = { userId, aspect: 'ACCESS' };
 
+      console.log('.... primaryKey = ', primaryKey);
+
       // get data from DB
-      const data = await get('USERS', primaryKey);
+      const data = await get(tableUsers, primaryKey);
       if (!data) {
         return null;
       }
+
+      console.log('.... dynamo data = ', data);
 
       // check and return data
       const res = any2type(refData, data);
@@ -76,6 +92,8 @@ const resolvers = {
     setVersion: (source: any, args: any, context: any, info: any) => 'v0.1.0', // NOTE: cannot set version at this time
 
     setAccess: async (source: any, args: any, context: any, info: any) => {
+      console.log('.... .... .... setAccess called .... .... ....');
+
       // check if input is given
       if (!args || !args.input) {
         throw new ErrorBadRequest('input data is missing');
@@ -93,14 +111,18 @@ const resolvers = {
       const { userId } = input;
       const primaryKey = { userId, aspect: 'ACCESS' };
 
+      console.log('.... primaryKey = ', primaryKey);
+
       // set input data
       let inputData = input;
-      if (!(await exists('USERS', primaryKey))) {
+      if (!(await exists(tableUsers, primaryKey))) {
         inputData = {
           ...newAccess(),
           ...input,
         };
       }
+
+      console.log('.... inputData = ', inputData);
 
       // remove userId and aspect
       delete inputData.userId;
@@ -112,7 +134,9 @@ const resolvers = {
       }
 
       // update data in DB
-      const data = await update('USERS', primaryKey, inputData);
+      const data = await update(tableUsers, primaryKey, inputData);
+
+      console.log('.... dynamo data = ', data);
 
       // check and return data
       const res = any2type(refData, data);

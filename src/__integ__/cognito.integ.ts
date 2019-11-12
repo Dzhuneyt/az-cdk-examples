@@ -4,12 +4,14 @@ import fetch from 'node-fetch';
 import Amplify from '@aws-amplify/core';
 import Auth from '@aws-amplify/auth';
 import { v4 } from 'uuid';
-import { deleteUser, findUser, decodePayload } from '@cpmech/az-cognito';
+import { defaultEmailMaker } from '@cpmech/az-lambda';
+import { adminDeleteUser, adminFindUserByEmail, getTokenPayload } from '@cpmech/az-cognito';
 import {
   deleteEmail,
   receiveEmail,
   extractCodeFromEmail,
   extractSubjectAndMessage,
+  IQueueEmail,
 } from '@cpmech/az-senqs';
 import { sleep } from '@cpmech/basic';
 import { initEnvars } from '@cpmech/envars';
@@ -40,7 +42,7 @@ let username: string = '';
 const cleanUp = async () => {
   try {
     if (username) {
-      await deleteUser(username, envars.USER_POOL_ID);
+      await adminDeleteUser(envars.USER_POOL_ID, username);
       console.log('... user deleted successfully ...');
     }
   } catch (err) {
@@ -69,20 +71,18 @@ describe('cognito', () => {
     expect(res.userConfirmed).toBe(false);
 
     console.log('2: receiving email');
-    await sleep(3000);
-    const r = await receiveEmail(email, envars.EMAILS_QUEUE_URL);
-    const emailReceiptHandle = r.receiptHandle;
+    const emailCode = await receiveEmail(email, envars.EMAILS_QUEUE_URL, 'us-east-1', 20, 2000);
 
-    console.log('3: extracting code from email');
-    const code = await extractCodeFromEmail(r.content);
+    console.log('3: deleting email');
+    await deleteEmail(emailCode.receiptHandle, envars.EMAILS_QUEUE_URL);
+
+    console.log('4: extracting code from email');
+    const code = await extractCodeFromEmail(emailCode.content);
     console.log('>>> code = ', code);
-
-    console.log('4: deleting email');
-    await deleteEmail(emailReceiptHandle, envars.EMAILS_QUEUE_URL);
 
     console.log('5: confirming email with given code');
     await Auth.confirmSignUp(username, code);
-    const userJustConfirmed = await findUser(email, envars.USER_POOL_ID);
+    const userJustConfirmed = await adminFindUserByEmail(envars.USER_POOL_ID, email);
     expect(userJustConfirmed.Data.email).toBe(email);
     expect(userJustConfirmed.Data.email_verified).toBe('true');
 
@@ -91,24 +91,17 @@ describe('cognito', () => {
     expect(user.attributes.email_verified).toBe(true);
 
     console.log('7: receiving confirmation email');
-    await sleep(3000);
-    const rc = await receiveEmail(email, envars.EMAILS_QUEUE_URL);
-    const sm = await extractSubjectAndMessage(rc.content);
-    expect(sm).toEqual({
-      subject: 'Welcome to AZCDK!',
-      message: `Hello,
+    const emailConfirm = await receiveEmail(email, envars.EMAILS_QUEUE_URL, 'us-east-1', 20, 2000);
 
-Your account has been created successfully.
+    console.log('8: deleting email');
+    await deleteEmail(emailConfirm.receiptHandle, envars.EMAILS_QUEUE_URL);
 
-Enjoy!
+    console.log('9: checking confirmation message');
+    const sm = await extractSubjectAndMessage(emailConfirm.content);
+    expect(sm).toEqual(defaultEmailMaker(email));
 
-
-`,
-    });
-
-    console.log('8: checking group');
-    const payload = await decodePayload(user);
-    console.log(payload);
+    console.log('10: checking group');
+    const payload = await getTokenPayload(user);
     expect(payload['cognito:groups']).toEqual([envars.DEFAULT_USER_GROUP]);
   });
 });

@@ -28,7 +28,11 @@ const api = new LambdaApiConstruct(stack, 'API', {
       handlerName: 'server',
       httpMethods: ['POST'],
       route: 'graphql',
-      accessDynamoTables: ['USERS'],
+      accessDynamoTables: [cfg.tableUsers],
+      envars: {
+        STAGE: envars.STAGE,
+        TABLE_USERS_PREFIX: envars.TABLE_USERS_PREFIX,
+      },
     },
   ],
   useLayers: true,

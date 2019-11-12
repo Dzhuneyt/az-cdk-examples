@@ -2,8 +2,10 @@ import fetch from 'node-fetch';
 (global as any).fetch = fetch;
 
 import Amplify from '@aws-amplify/core';
-import Auth from '@aws-amplify/auth';
+import Auth, { CognitoUser } from '@aws-amplify/auth';
+import { v4 } from 'uuid';
 import { GraphQLClient } from 'graphql-request';
+import { getToken } from '@cpmech/az-cognito';
 import { initEnvars } from '@cpmech/envars';
 
 const envars = {
@@ -87,11 +89,86 @@ describe('graphql', () => {
     );
   });
 
-  it.only('should return Access data', async () => {
+  it('should return version from query', async () => {
     const email = `tester@${envars.WEBSITE_DOMAIN}`;
     const password = envars.TESTER_USER_PASSWORD;
     const user = await Auth.signIn({ username: email, password });
+    const token = getToken(user).getJwtToken();
+    const client = new GraphQLClient(`${envars.API_URL}/graphql`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const res = await client.request(`query { version }`);
+    expect(res).toEqual({
+      version: 'v0.1.0',
+    });
+  });
 
-    console.log(user);
+  it('should return Access from query', async () => {
+    const email = `tester@${envars.WEBSITE_DOMAIN}`;
+    const password = envars.TESTER_USER_PASSWORD;
+    const user = (await Auth.signIn({ username: email, password })) as CognitoUser;
+    const token = getToken(user).getJwtToken();
+    const client = new GraphQLClient(`${envars.API_URL}/graphql`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const userId = user.getUsername();
+    const res = await client.request(`
+      query {
+        access(userId:"${userId}") {
+          aspect
+          role
+          email
+        }
+      }`);
+    expect(res).toEqual({
+      access: {
+        aspect: 'ACCESS',
+        role: 'READER',
+        email,
+      },
+    });
+  });
+
+  it('should return setAccess after mutation', async () => {
+    const email = `tester@${envars.WEBSITE_DOMAIN}`;
+    const password = envars.TESTER_USER_PASSWORD;
+    const user = (await Auth.signIn({ username: email, password })) as CognitoUser;
+    const token = getToken(user).getJwtToken();
+    const client = new GraphQLClient(`${envars.API_URL}/graphql`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const userId = v4();
+    const res = await client.request(
+      `mutation SetAccess($input:AccessInput!) {
+        setAccess(input:$input) {
+          userId
+          aspect
+          email
+          role
+        }
+      }`,
+      {
+        input: {
+          userId,
+          aspect: 'ACCESS',
+          email: 'just.testing@azcdk.xyz',
+          role: 'READER',
+        },
+      },
+    );
+    expect(res).toEqual({
+      setAccess: {
+        userId,
+        aspect: 'ACCESS',
+        email: 'just.testing@azcdk.xyz',
+        role: 'READER',
+      },
+    });
   });
 });

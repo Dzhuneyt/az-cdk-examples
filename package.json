@@ -16,7 +16,7 @@
     "test": "rm -rf cdk.out && jest --verbose",
     "tw": "jest --watch --verbose",
     "cov": "npm run build && jest --coverage",
-    "integ": "jest -c jest.config-integ.js --verbose",
+    "integ": "jest -c jest.config-integ.js --verbose --runInBand",
     "integw": "jest -c jest.config-integ.js --verbose --watch"
   },
   "description": "examples",
