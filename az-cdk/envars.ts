@@ -42,7 +42,7 @@ export const cfg = {
   prefix: `${app}-${envars.STAGE}`,
   poolName: `${app}-${envars.STAGE}-users`,
   testerEmail: `tester@${envars.WEBSITE_DOMAIN}`,
-  senderEmail: `tester@${envars.EMAILS_SENDING_DOMAIN}`,
+  senderEmail: `admin@${envars.EMAILS_SENDING_DOMAIN}`,
   receiverEmails: [
     `admin@${envars.EMAILS_RECEIVING_DOMAIN}`,
     `tester@${envars.EMAILS_RECEIVING_DOMAIN}`,
