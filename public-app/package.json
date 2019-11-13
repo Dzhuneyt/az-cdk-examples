@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cpmech/gate": "^0.2.0",
+    "@cpmech/gate": "^0.3.0",
     "@cpmech/rcomps": "^1.15.0",
     "@cpmech/react-icons": "^2.7.0",
     "@emotion/core": "^10.0.22",
     "@reach/router": "^1.2.1",
-    "@types/jest": "24.0.22",
+    "@types/jest": "24.0.23",
     "@types/node": "12.12.7",
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.4",
@@ -53,8 +53,8 @@
   },
   "devDependencies": {
     "@types/reach__router": "^1.2.6",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "@typescript-eslint/parser": "^2.7.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-jest": "^23.0.3",
@@ -62,6 +62,6 @@
     "eslint-plugin-react": "^7.16.0",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
-    "prettier": "^1.19.0"
+    "prettier": "^1.19.1"
   }
 }
