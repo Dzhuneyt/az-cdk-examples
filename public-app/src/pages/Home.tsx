@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 /** @jsx jsx */ import { jsx, css } from '@emotion/core';
 import { RouteComponentProps } from '@reach/router';
-import Auth from '@aws-amplify/auth';
 import { GraphQLClient } from 'graphql-request';
+import { gate } from 'gate';
 import { Button } from 'rcomps';
 
 interface IHomeProps extends RouteComponentProps {}
@@ -15,13 +15,8 @@ export const Home: React.FC<IHomeProps> = () => {
 
   const run = async () => {
     try {
-      const session = await Auth.currentSession();
-      const idToken = session.getIdToken().getJwtToken();
-      const client = new GraphQLClient(`https://api-dev.azcdk.xyz/graphql`, {
-        headers: {
-          authorization: `Bearer ${idToken}`,
-        },
-      });
+      const headers = await gate.getAuthHeader();
+      const client = new GraphQLClient(`https://api-dev.azcdk.xyz/graphql`, headers);
       const res = await client.request(text);
       setResults(JSON.stringify(res, undefined, 2));
     } catch (error) {
