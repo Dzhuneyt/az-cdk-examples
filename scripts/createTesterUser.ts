@@ -20,7 +20,7 @@ const users: IUserInput[] = [
 
 (async () => {
   try {
-    await adminCreateUsers(envars.USER_POOL_ID, envars.USER_POOL_CLIENT_ID, users);
+    await adminCreateUsers(envars.USER_POOL_ID, envars.USER_POOL_CLIENT_ID, users, undefined, true);
   } catch (error) {
     console.log('ERROR: ', error);
   }

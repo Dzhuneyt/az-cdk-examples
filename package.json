@@ -9,7 +9,7 @@
   },
   "repository": "cpmech/az-cdk",
   "scripts": {
-    "addTester": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/createTesterUser.ts --resolveJsonModule",
+    "new:tester": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/createTesterUser.ts --resolveJsonModule",
     "preinstall": "cd layers/nodejs/ && npm install --no-bin-links",
     "cdk:simple": "bash ./scripts/cdk.bash",
     "cdk": "npm run build && bash ./scripts/cdk.bash",
@@ -79,7 +79,7 @@
     "@aws-cdk/aws-sns-subscriptions": "^1.18.0",
     "@aws-cdk/aws-sqs": "^1.18.0",
     "@aws-cdk/core": "^1.18.0",
-    "@cpmech/az-cdk": "6.1.0",
+    "@cpmech/az-cdk": "6.2.0",
     "@cpmech/az-cdk-crl": "^1.20.1",
     "@cpmech/az-cognito": "^2.17.0",
     "@cpmech/az-dynamo": "^2.12.1",
