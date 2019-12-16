@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Router, Link } from '@reach/router';
-import { GateKeeper, MainMenu, initAuth, gate } from 'gate';
+import { GateKeeper, MainMenu } from 'gate';
 import { IconHouseThreeD } from '@cpmech/react-icons';
 import { Dashboard, Home, NotFound } from './pages';
-
-const poolId = process.env.REACT_APP_USER_POOL_ID || '';
-const clientId = process.env.REACT_APP_USER_POOL_CLIENT_ID || '';
-const domainPrefix = process.env.REACT_APP_USER_POOL_DOMAIN_PREFIX || '';
-
-initAuth(
-  poolId,
-  clientId,
-  `${domainPrefix}.auth.us-east-1.amazoncognito.com`,
-  'https://localhost:3000/',
-  'https://localhost:3000/',
-);
+import { gate } from 'store';
 
 const entries = [
   <Link key="link-to-dashboard" to="/dashboard">
@@ -28,28 +17,33 @@ export const App: React.FC = () => {
   useEffect(() => {
     setAccess(gate.access());
     return gate.subscribe(() => {
-      console.log(gate.state.user);
+      if (gate.access()) {
+        console.log('got access: you may init store here');
+      }
       setAccess(gate.access());
     }, 'az-cdk-examples-App');
   }, []);
 
   return (
-    <React.Fragment>
-      <GateKeeper />
-      <MainMenu
-        NarrowLogoIcon={IconHouseThreeD}
-        WideLogoIcon={IconHouseThreeD}
-        wideLogoWidth={60}
-        narrowMiddleEntries={entries}
-        wideMiddleEntries={entries}
-      />
+    <div>
+      <GateKeeper gate={gate} />
       {access && (
-        <Router>
-          <Home path="/" />
-          <Dashboard path="/dashboard" />
-          <NotFound default />
-        </Router>
+        <React.Fragment>
+          <MainMenu
+            gate={gate}
+            NarrowLogoIcon={IconHouseThreeD}
+            WideLogoIcon={IconHouseThreeD}
+            wideLogoWidth={60}
+            narrowMiddleEntries={entries}
+            wideMiddleEntries={entries}
+          />
+          <Router>
+            <Home path="/" />
+            <Dashboard path="/dashboard" />
+            <NotFound default />
+          </Router>
+        </React.Fragment>
       )}
-    </React.Fragment>
+    </div>
   );
 };

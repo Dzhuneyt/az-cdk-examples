@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 /** @jsx jsx */ import { jsx, css } from '@emotion/core';
 import { RouteComponentProps } from '@reach/router';
 import { GraphQLClient } from 'graphql-request';
-import { gate } from 'gate';
 import { Button } from 'rcomps';
+import { gate } from 'store';
 
 interface IHomeProps extends RouteComponentProps {}
 
@@ -15,7 +15,7 @@ export const Home: React.FC<IHomeProps> = () => {
 
   const run = async () => {
     try {
-      const headers = await gate.getAuthHeader();
+      const headers = await gate.getRefreshedAuthHeader();
       const client = new GraphQLClient(`https://api-dev.azcdk.xyz/graphql`, headers);
       const res = await client.request(text);
       setResults(JSON.stringify(res, undefined, 2));
