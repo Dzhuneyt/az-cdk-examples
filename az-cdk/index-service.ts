@@ -16,12 +16,14 @@ const api = new LambdaApiConstruct(stack, 'API', {
       httpMethods: ['GET'],
       route: 'open',
       unprotected: true,
+      dirDist: 'dist_api',
     },
     {
       filenameKey: 'closed',
       handlerName: 'closed',
       httpMethods: ['GET'],
       route: 'closed',
+      dirDist: 'dist_api',
     },
     {
       filenameKey: 'graphql',
@@ -33,6 +35,7 @@ const api = new LambdaApiConstruct(stack, 'API', {
         STAGE: envars.STAGE,
         TABLE_USERS_PREFIX: envars.TABLE_USERS_PREFIX,
       },
+      dirDist: 'dist_graphql',
     },
   ],
   useLayers: true,
