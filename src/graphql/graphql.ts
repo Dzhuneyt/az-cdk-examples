@@ -24,6 +24,7 @@ const astAccess: DocumentNode = gql`
 
   enum RoleOfUser {
     READER
+    TRAVELLER
   }
 
   type Access {

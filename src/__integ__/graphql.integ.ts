@@ -127,7 +127,7 @@ describe('graphql', () => {
     expect(res).toEqual({
       access: {
         aspect: 'ACCESS',
-        role: 'READER',
+        role: 'TRAVELLER',
         email,
       },
     });
