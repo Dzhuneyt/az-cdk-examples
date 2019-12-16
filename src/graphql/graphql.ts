@@ -6,7 +6,7 @@ import { ErrorBadRequest, ErrorInternal } from '@cpmech/httpcodes';
 import { get, exists, update } from '@cpmech/az-dynamo';
 import { initEnvars } from '@cpmech/envars';
 import { any2type } from '@cpmech/js2ts';
-import { newAccess } from './types';
+import { newAccess } from '../common';
 
 const envars = {
   STAGE: '', // 'dev' or 'pro'

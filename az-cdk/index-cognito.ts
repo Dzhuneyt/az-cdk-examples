@@ -20,6 +20,7 @@ const construct = new CognitoConstruct(stack, 'Cognito', {
   postConfirmSendEmail: true,
   postConfirmDynamoTable: cfg.tableUsers,
   useLayers: true,
+  dirDist: 'dist_cognito',
   envars,
 });
 

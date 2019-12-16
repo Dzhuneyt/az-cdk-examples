@@ -13,13 +13,15 @@ const external = [
   'mailparser',
 ];
 
-const cacheRoot = '/tmp/rollup_typescript_cache';
+const dir = 'api';
+
+const cacheRoot = `/tmp/rollup_typescript_${dir}`;
 
 const isTest = filename => /\.(test|spec)\.[jt]sx?$/.test(filename);
 
 const isJSFile = filename => /\.[jt]sx?$/.test(filename);
 
-const lamDir = path.resolve(__dirname, 'src', 'lambda');
+const lamDir = path.resolve(__dirname, 'src', dir);
 
 const lambdas = fs
   .readdirSync(lamDir)
@@ -28,9 +30,9 @@ const lambdas = fs
 
 export default lambdas.map(lambda => ({
   external,
-  input: path.join('src', 'lambda', lambda),
+  input: path.join('src', dir, lambda),
   output: {
-    file: path.join('dist', lambda.substr(0, lambda.lastIndexOf('.')) + '.js'),
+    file: path.join(`dist_${dir}`, lambda.substr(0, lambda.lastIndexOf('.')) + '.js'),
     format: 'cjs',
   },
   plugins: [

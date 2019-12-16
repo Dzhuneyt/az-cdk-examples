@@ -1,5 +1,6 @@
 import { makeCognitoPostConfirmHandler } from '@cpmech/az-lambda';
 import { initEnvars } from '@cpmech/envars';
+import { newAccess } from '../common';
 
 const envars = {
   STAGE: '', // 'dev' or 'pro'
@@ -14,18 +15,6 @@ const tableUsers = `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
 
 const senderEmail = `admin@${envars.EMAILS_SENDING_DOMAIN}`;
 
-interface IData {
-  userId: string;
-  aspect: string;
-  email: string;
-}
-
-const reference: IData = {
-  userId: '',
-  aspect: '',
-  email: '',
-};
-
 const verbose = true;
 const emailMaker = undefined;
 
@@ -35,5 +24,5 @@ export const handler = makeCognitoPostConfirmHandler(
   verbose,
   emailMaker,
   tableUsers,
-  reference,
+  newAccess(),
 );
