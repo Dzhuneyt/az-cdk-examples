@@ -11,6 +11,7 @@
   "scripts": {
     "addTester": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/createTesterUser.ts --resolveJsonModule",
     "preinstall": "cd layers/nodejs/ && npm install --no-bin-links",
+    "cdk:simple": "bash ./scripts/cdk.bash",
     "cdk": "npm run build && bash ./scripts/cdk.bash",
     "build": "rm -rf dist && rollup --config rollup.config-lambda.js",
     "test": "rm -rf cdk.out && jest --verbose",

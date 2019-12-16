@@ -1,11 +1,13 @@
 #!/bin/bash
 
-yarn cdk website diff
-yarn cdk website-pip diff
-yarn cdk website-app diff
-yarn cdk website-app-pip diff
-yarn cdk emails diff
-yarn cdk dynamo diff
-yarn cdk cognito diff
-yarn cdk service diff
-yarn cdk service-pip diff
+yarn build
+
+yarn cdk:simple website diff
+yarn cdk:simple website-pip diff
+yarn cdk:simple website-app diff
+yarn cdk:simple website-app-pip diff
+yarn cdk:simple emails diff
+yarn cdk:simple dynamo diff
+yarn cdk:simple cognito diff
+yarn cdk:simple service diff
+yarn cdk:simple service-pip diff
