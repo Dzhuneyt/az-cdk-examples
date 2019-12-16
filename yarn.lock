@@ -865,6 +865,16 @@
     "@cpmech/js2ts" "^1.10.0"
     aws-sdk "^2.590.0"
 
+"@cpmech/az-cdk-crl@^1.20.1":
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-cdk-crl/-/az-cdk-crl-1.20.1.tgz#d53cdda7a2606c3f7a770e698a5bc7729105dc68"
+  integrity sha512-KYdp055Pw80ngG/m5clj2xhtATd8te30KUTNNPyxDLlh/OAI+OsFAtzaE6dhHlyi188b4boT/vsnacI7vaIfxQ==
+  dependencies:
+    "@cpmech/az-cognito" "^2.17.0"
+    "@cpmech/basic" "^3.15.0"
+    "@cpmech/js2ts" "^1.10.1"
+    aws-sdk "^2.590.0"
+
 "@cpmech/az-cdk@6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@cpmech/az-cdk/-/az-cdk-6.1.0.tgz#21f515e47482bf809e1f2d190488e8ff48076162"
@@ -916,17 +926,25 @@
     "@cpmech/js2ts" "^1.10.0"
     aws-sdk "^2.590.0"
 
-"@cpmech/az-lambda@^2.21.0":
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/az-lambda/-/az-lambda-2.21.0.tgz#d740d9f2b41a38d40fb7efff73ab4745f48ca15b"
-  integrity sha512-L889A2s/+aPeEy8yxIaXT6/5mUAZ9HMvu2mGgB29KSsGOIdPztLMG8VdkGNgQyaOVmmHEDGv/3qc7rvaKd9BNA==
+"@cpmech/az-dynamo@^2.12.1":
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-dynamo/-/az-dynamo-2.12.1.tgz#441561b146a6b4b8b6399f06037aed20ae410c32"
+  integrity sha512-BqQcqLFnBmhVQVzuVv7A5A+Q9c0HjBfgQirFe6NYa673N4MlULNdMCX2M3xXvgBmHcjjeiP7r4wFhaSVR5RSTw==
+  dependencies:
+    "@cpmech/js2ts" "^1.10.1"
+    aws-sdk "^2.590.0"
+
+"@cpmech/az-lambda@^2.21.3":
+  version "2.21.3"
+  resolved "https://registry.yarnpkg.com/@cpmech/az-lambda/-/az-lambda-2.21.3.tgz#50eb8d052746ee218f5988b52aae8e90f50d4106"
+  integrity sha512-eXcgIsF/6FeMJQA3D3qJntFAFhbxZQwB9b4HtTHq/Afd284eZddDWddta1V4Z5lsQ9Ie8ooqJGqT3xqXlnwzXQ==
   dependencies:
     "@cpmech/az-cognito" "^2.17.0"
-    "@cpmech/az-dynamo" "^2.12.0"
+    "@cpmech/az-dynamo" "^2.12.1"
     "@cpmech/az-senqs" "^2.16.0"
     "@cpmech/basic" "^3.15.0"
-    "@cpmech/httpcodes" "^2.9.0"
-    "@cpmech/js2ts" "^1.10.0"
+    "@cpmech/httpcodes" "^2.9.2"
+    "@cpmech/js2ts" "^1.10.1"
     "@types/aws-lambda" "^8.10.39"
     aws-sdk "^2.590.0"
 
@@ -951,17 +969,17 @@
   dependencies:
     "@cpmech/basic" "^3.15.0"
 
-"@cpmech/httpcodes@^2.8.0", "@cpmech/httpcodes@^2.9.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/httpcodes/-/httpcodes-2.8.0.tgz#c1f160259e527eb5c1846e8faf34375d5b5f907f"
-  integrity sha512-ecDn7vQyMTM86vCqTUKlIBmt9qUMbUK81RnDlED+tHsSVExjJVebVcefATsz5PG81f/x1ykqJK5khumQetTalA==
+"@cpmech/httpcodes@^2.9.2":
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/@cpmech/httpcodes/-/httpcodes-2.9.2.tgz#1afa2d110bb0be4e5c56be5c3b99654c703e451d"
+  integrity sha512-1lT9XWMAWjnF5WduqYLY04Jh3suIA59ITH+NEbaX4w0TPEVlM2uNtxNIjfGQFJ9S1Tzcn20yTN0pQId0qwq74g==
   dependencies:
-    rollup-plugin-terser "^5.1.2"
+    rollup-plugin-terser "^5.1.3"
 
-"@cpmech/js2ts@^1.10.0", "@cpmech/js2ts@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@cpmech/js2ts/-/js2ts-1.9.0.tgz#2a375bc11adb79aa5fc99b6ef791c9e32dd1534b"
-  integrity sha512-I/iew85IYAsTjzxJjYxdaN3WKbaweYVefY3th1t5rcyvAx9bjn+pTnhfzOeWVYqSMaTgFe3rOjImGKwvCbfvbg==
+"@cpmech/js2ts@^1.10.0", "@cpmech/js2ts@^1.10.1":
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/@cpmech/js2ts/-/js2ts-1.10.1.tgz#bb6fc4dd0a1e29f112aa068bf406e37dfe916b33"
+  integrity sha512-WLofUfwKTr55l3KXfcMaQXLJAmZEEdkh+fCfmj26w0/juLbTh8bjoO7rtupJwcSFKwNo8opUmBVcd0cWYQJr4g==
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
@@ -5025,7 +5043,7 @@ rollup-plugin-node-resolve@^5.2.0:
     resolve "^1.11.1"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-terser@^5.1.2:
+rollup-plugin-terser@^5.1.3:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-5.1.3.tgz#5f4c4603b12b4f8d093f4b6f31c9aa5eba98a223"
   integrity sha512-FuFuXE5QUJ7snyxHLPp/0LFXJhdomKlIx/aK7Tg88Yubsx/UU/lmInoJafXJ4jwVVNcORJ1wRUC5T9cy5yk0wA==

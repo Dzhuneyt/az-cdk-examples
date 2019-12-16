@@ -18,7 +18,7 @@
     "tw": "jest --watch --verbose",
     "cov": "npm run build && jest --coverage",
     "integ": "jest -c jest.config-integ.js --verbose --runInBand",
-    "integw": "jest -c jest.config-integ.js --verbose --watch"
+    "integw": "jest -c jest.config-integ.js --verbose --runInBand --watch"
   },
   "description": "examples",
   "keywords": [
@@ -77,14 +77,14 @@
     "@aws-cdk/aws-sqs": "^1.18.0",
     "@aws-cdk/core": "^1.18.0",
     "@cpmech/az-cdk": "6.1.0",
-    "@cpmech/az-cdk-crl": "^1.20.0",
+    "@cpmech/az-cdk-crl": "^1.20.1",
     "@cpmech/az-cognito": "^2.17.0",
-    "@cpmech/az-dynamo": "^2.12.0",
-    "@cpmech/az-lambda": "^2.21.0",
+    "@cpmech/az-dynamo": "^2.12.1",
+    "@cpmech/az-lambda": "^2.21.3",
     "@cpmech/az-senqs": "^2.16.0",
     "@cpmech/envars": "^1.15.0",
-    "@cpmech/httpcodes": "^2.8.0",
-    "@cpmech/js2ts": "^1.9.0",
+    "@cpmech/httpcodes": "^2.9.2",
+    "@cpmech/js2ts": "^1.10.1",
     "aws-cdk": "^1.18.0",
     "aws-sdk": "^2.590.0"
   }
