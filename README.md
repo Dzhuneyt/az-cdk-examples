@@ -62,8 +62,16 @@ yarn cdk website synth --verbose
 
 ## ERRORS
 
+### Deployment
+
 ```
 Amazon SES account is in Sandbox. Verify Send-to email address or Amazon SES Account (Service: AWSCognitoIdentityProviderService; Status Code: 400; Error Code: InvalidParameterException; Request ID: ae2863a6-0c8d-4fe0-81e8-3e6e2d8906a3)
 ```
 
 This means that the `senderEmail` email has not been manually verified
+
+### Graphql test
+
+If you get `{ \"message\": \"Unauthorized\" }` means that the Cognito IDs are wrong in API Gateway
+
+We have to destroy the graphql lambda function first and then re-deploy to induce an update on the Gateway

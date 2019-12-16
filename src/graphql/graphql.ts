@@ -170,7 +170,26 @@ const schema = extendSchema(rootSchema, astAccess);
 
 addResolveFunctionsToSchema({ schema, resolvers });
 
-const apollo = new ApolloServer({ schema });
+const apollo = new ApolloServer({
+  schema,
+  tracing: true,
+  playground: true,
+  introspection: true,
+  context: ({ event, context }) => ({
+    headers: event.headers,
+    functionName: context.functionName,
+    event,
+    context,
+  }),
+  formatError: error => {
+    console.log('... graphql failed ....');
+    console.log(error);
+    return error;
+  },
+  formatResponse: (response: any) => {
+    return response;
+  },
+});
 
 export const server = apollo.createHandler({
   cors: {

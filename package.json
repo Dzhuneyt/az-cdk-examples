@@ -9,7 +9,8 @@
   },
   "repository": "cpmech/az-cdk",
   "scripts": {
-    "new:tester": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/createTesterUser.ts --resolveJsonModule",
+    "tester:new": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/createTesterUser.ts --resolveJsonModule",
+    "tester:tok": "ts-node -O '{\"module\":\"commonjs\",\"resolveJsonModule\":true}' scripts/getTesterToken.ts --resolveJsonModule",
     "preinstall": "cd layers/nodejs/ && npm install --no-bin-links",
     "cdk:simple": "bash ./scripts/cdk.bash",
     "cdk": "npm run build && bash ./scripts/cdk.bash",
