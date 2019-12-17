@@ -36,7 +36,7 @@
   ],
   "devDependencies": {
     "@types/jest": "^24.0.23",
-    "@types/node": "^12.12.17",
+    "@types/node": "^12.12.18",
     "@types/node-fetch": "^2.5.4",
     "@types/uuid": "^3.4.6",
     "apollo-server-lambda": "file:./layers/nodejs/node_modules/apollo-server-lambda",
@@ -90,6 +90,6 @@
     "@cpmech/httpcodes": "^2.9.2",
     "@cpmech/js2ts": "^1.10.1",
     "aws-cdk": "^1.18.0",
-    "aws-sdk": "^2.590.0"
+    "aws-sdk": "^2.591.0"
   }
 }
