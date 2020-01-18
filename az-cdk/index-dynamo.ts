@@ -13,13 +13,11 @@ new DynamoConstruct(stack, 'Dynamo', {
       name: cfg.tableParams,
       partitionKey: 'paramId',
       sortKey: 'category',
-      onDemand: true,
     },
     {
       name: cfg.tableUsers,
       partitionKey: 'userId',
       sortKey: 'aspect',
-      onDemand: true,
       gsi: {
         indexName: 'email2access',
         partitionKey: { name: 'access', type: AttributeType.STRING },
