@@ -1,19 +1,16 @@
 import { App } from '@aws-cdk/core';
 import { WebsitePipelineStack, ssmSecret } from '@cpmech/az-cdk';
-import { envars, cfg } from './envars';
-import { config } from './config';
+import { envars } from './envars';
 
 const app = new App();
 
-const githubSecret = ssmSecret(config.ssmParamGithub);
-
-new WebsitePipelineStack(app, `${cfg.prefix}-website-pip`, {
-  githubRepo: config.githubRepo,
-  githubUser: config.githubUser,
-  websiteBucketName: cfg.websiteBucketName,
-  cloudfrontDistributionId: envars.WEBSITE_CLOUDFRONT_ID,
-  notificationEmails: envars.PIPELINE_NOTIFICATION_EMAILS.split(','),
+new WebsitePipelineStack(app, `AZCDK-${envars.STAGE}-website-pip`, {
+  githubRepo: 'az-cdk-examples',
+  githubUser: 'cpmech',
+  githubSecret: ssmSecret({ name: 'GHTOKEN', version: '1' }),
+  websiteBucketName: `${envars.AZCDK_WEBSITE_DOMAIN}-website`,
+  cloudfrontDistributionId: envars.AZCDK_WEBSITE_CLOUDFRONT_ID,
+  notificationEmails: envars.AZCDK_PIPELINE_NOTIFICATION_EMAILS.split(','),
   assetsDir: 'public',
-  githubSecret,
   envars,
 });

@@ -2,20 +2,21 @@ import gql from 'graphql-tag';
 import { DocumentNode, buildSchema, extendSchema } from 'graphql';
 import { addResolveFunctionsToSchema } from 'graphql-tools';
 import { ApolloServer } from 'apollo-server-lambda';
-import { ErrorBadRequest, ErrorInternal } from '@cpmech/httpcodes';
-import { get, exists, update } from '@cpmech/az-dynamo';
+import { ErrorInternal } from '@cpmech/httpcodes';
+import { mlog, elog } from '@cpmech/basic';
+import { get, update } from '@cpmech/az-dynamo';
 import { initEnvars } from '@cpmech/envars';
 import { any2type } from '@cpmech/js2ts';
-import { newAccess } from '../common';
+import { zeroAccess } from '../common';
 
 const envars = {
-  STAGE: '', // 'dev' or 'pro'
-  TABLE_USERS_PREFIX: '',
+  STAGE: '',
+  AZCDK_TABLE_USERS: '',
 };
 
 initEnvars(envars);
 
-const tableUsers = `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
+const tableUsers = `${envars.AZCDK_TABLE_USERS}-${envars.STAGE.toUpperCase()}`;
 
 const astAccess: DocumentNode = gql`
   enum Aspect {
@@ -28,121 +29,54 @@ const astAccess: DocumentNode = gql`
   }
 
   type Access {
-    userId: ID!
+    itemId: ID!
     aspect: Aspect!
     role: RoleOfUser!
     email: String!
+    fullName: String
   }
 
   extend type Query {
-    access(userId: ID!): Access
+    access(itemId: ID!): Access
   }
 
   input AccessInput {
-    userId: ID!
-    aspect: Aspect
-    role: RoleOfUser
     email: String
+    fullName: String
   }
 
   extend type Mutation {
-    setAccess(input: AccessInput!): Access!
+    setAccess(itemId: ID!, input: AccessInput!): Access!
   }
 `;
 
-const refData = newAccess();
+const refData = zeroAccess();
 
 const resolvers = {
   Query: {
-    version: (source: any, args: any, context: any, info: any) => 'v0.1.0',
-
-    access: async (source: any, args: any, context: any, info: any) => {
-      console.log('.... .... .... access called .... .... ....');
-
-      // extract userId
-      const { userId } = args;
-
-      // check if userId is given
-      if (!userId) {
-        throw new ErrorBadRequest('userId is missing');
-      }
-
-      // DynamoDB primary key
-      const primaryKey = { userId, aspect: 'ACCESS' };
-
-      console.log('.... primaryKey = ', primaryKey);
-
-      // get data from DB
+    version: () => 'v0.1.0',
+    access: async (_: any, args: any) => {
+      const primaryKey = { itemId: args.itemId, aspect: 'ACCESS' };
       const data = await get(tableUsers, primaryKey);
       if (!data) {
         return null;
       }
-
-      console.log('.... dynamo data = ', data);
-
-      // check and return data
       const res = any2type(refData, data);
       if (!res) {
-        throw new ErrorInternal(`database is damaged. userId = ${userId}`);
+        throw new ErrorInternal(`database is damaged. itemId = ${args.itemId}`);
       }
       return res;
     },
   },
 
   Mutation: {
-    setVersion: (source: any, args: any, context: any, info: any) => 'v0.1.0', // NOTE: cannot set version at this time
-
-    setAccess: async (source: any, args: any, context: any, info: any) => {
-      console.log('.... .... .... setAccess called .... .... ....');
-
-      // check if input is given
-      if (!args || !args.input) {
-        throw new ErrorBadRequest('input data is missing');
-      }
-
-      // extract input
-      const { input } = args;
-
-      // check if userId is given
-      if (!input.userId) {
-        throw new ErrorBadRequest('userId is missing');
-      }
-
-      // DynamoDB primary key
-      const { userId } = input;
-      const primaryKey = { userId, aspect: 'ACCESS' };
-
-      console.log('.... primaryKey = ', primaryKey);
-
-      // set input data
-      let inputData = input;
-      if (!(await exists(tableUsers, primaryKey))) {
-        inputData = {
-          ...newAccess(),
-          ...input,
-        };
-      }
-
-      console.log('.... inputData = ', inputData);
-
-      // remove userId and aspect
-      delete inputData.userId;
-      delete inputData.aspect;
-
-      // check if there is data to be updated
-      if (Object.keys(input).length === 0) {
-        throw new ErrorBadRequest('there is no data to be updated');
-      }
-
-      // update data in DB
-      const data = await update(tableUsers, primaryKey, inputData);
-
-      console.log('.... dynamo data = ', data);
-
-      // check and return data
+    setVersion: () => 'v0.1.0', // NOTE: cannot set version at this time
+    setAccess: async (_: any, args: any) => {
+      const primaryKey = { itemId: args.itemId, aspect: 'ACCESS' };
+      const data = await update(tableUsers, primaryKey, args.input);
       const res = any2type(refData, data);
       if (!res) {
-        throw new ErrorInternal(`database is damaged. userId = ${userId}`);
+        throw new ErrorInternal(`database is damaged. itemId = ${args.itemId}`);
       }
       return res;
     },
@@ -173,7 +107,6 @@ addResolveFunctionsToSchema({ schema, resolvers });
 
 const apollo = new ApolloServer({
   schema,
-  tracing: true,
   playground: true,
   introspection: true,
   context: ({ event, context }) => ({
@@ -183,11 +116,14 @@ const apollo = new ApolloServer({
     context,
   }),
   formatError: error => {
-    console.log('... graphql failed ....');
-    console.log(error);
+    elog(error);
     return error;
   },
   formatResponse: (response: any) => {
+    if (response?.data?.__schema) {
+      return response;
+    }
+    mlog(response);
     return response;
   },
 });

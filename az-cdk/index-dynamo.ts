@@ -1,29 +1,24 @@
 import { App, Stack } from '@aws-cdk/core';
-import { AttributeType, ProjectionType } from '@aws-cdk/aws-dynamodb';
+import { AttributeType } from '@aws-cdk/aws-dynamodb';
 import { DynamoConstruct } from '@cpmech/az-cdk';
-import { cfg } from './envars';
+import { envars } from './envars';
+
+const tableUsers = `${envars.AZCDK_TABLE_USERS}-${envars.STAGE.toUpperCase()}`;
+const indexUsers = `${envars.AZCDK_TABLE_USERS}-index`;
 
 const app = new App();
-
-const stack = new Stack(app, `${cfg.prefix}-dynamo`);
+const stack = new Stack(app, `AZCDK-${envars.STAGE}-dynamo`);
 
 new DynamoConstruct(stack, 'Dynamo', {
   dynamoTables: [
     {
-      name: cfg.tableParams,
-      partitionKey: 'paramId',
-      sortKey: 'category',
-    },
-    {
-      name: cfg.tableUsers,
-      partitionKey: 'userId',
+      name: tableUsers,
+      partitionKey: 'itemId',
       sortKey: 'aspect',
       gsi: {
-        indexName: 'email2access',
-        partitionKey: { name: 'access', type: AttributeType.STRING },
-        sortKey: { name: 'email', type: AttributeType.STRING },
-        nonKeyAttributes: ['phone', 'accountStatus'],
-        projectionType: ProjectionType.INCLUDE,
+        indexName: indexUsers,
+        partitionKey: { name: 'aspect', type: AttributeType.STRING },
+        sortKey: { name: 'indexSK', type: AttributeType.STRING },
       },
     },
   ],

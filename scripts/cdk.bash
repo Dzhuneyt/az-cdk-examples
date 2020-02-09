@@ -37,14 +37,6 @@ if [[ $3 != "" ]]; then
   fi
 fi
 
-# check stage name
-if [[ $STAGE != "dev" && $STAGE != "pro" ]]; then
-  echo
-  echo "ERROR: STAGE must be either 'dev' or 'pro' (or empty => 'dev')"
-  echo
-  exit 1
-fi
-
 # deternine stack name pattern
 STACK=""
 if [[ $KIND == "sup" && $COMMAND != "bootstrap" ]]; then

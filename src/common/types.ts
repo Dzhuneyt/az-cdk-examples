@@ -1,13 +1,15 @@
 export interface IAccess {
-  userId: string;
+  itemId: string;
   aspect: 'ACCESS';
   role: 'TRAVELLER';
   email: string;
+  fullName?: string;
 }
 
-export const newAccess = (): IAccess => ({
-  userId: '',
+export const zeroAccess = (): IAccess => ({
+  itemId: '',
   aspect: 'ACCESS',
   role: 'TRAVELLER',
   email: '',
+  fullName: '',
 });

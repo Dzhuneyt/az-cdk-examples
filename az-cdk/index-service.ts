@@ -1,14 +1,15 @@
 import { App, Stack, CfnOutput } from '@aws-cdk/core';
 import { LambdaApiConstruct } from '@cpmech/az-cdk';
-import { envars, cfg } from './envars';
+import { envars } from './envars';
+
+const tableUsers = `${envars.AZCDK_TABLE_USERS}-${envars.STAGE.toUpperCase()}`;
 
 const app = new App();
-
-const stack = new Stack(app, `${cfg.prefix}-service`);
+const stack = new Stack(app, `AZCDK-${envars.STAGE}-dynamo`);
 
 const api = new LambdaApiConstruct(stack, 'API', {
-  gatewayName: cfg.gatewayName,
-  cognitoId: envars.USER_POOL_ID,
+  gatewayName: `AZCDK-${envars.STAGE}-api`,
+  cognitoId: envars.AZCDK_USER_POOL_ID,
   lambdas: [
     {
       filenameKey: 'open',
@@ -30,19 +31,19 @@ const api = new LambdaApiConstruct(stack, 'API', {
       handlerName: 'server',
       httpMethods: ['POST'],
       route: 'graphql',
-      accessDynamoTables: [cfg.tableUsers],
+      accessDynamoTables: [tableUsers],
       envars: {
         STAGE: envars.STAGE,
-        TABLE_USERS_PREFIX: envars.TABLE_USERS_PREFIX,
+        TABLE_USERS: envars.AZCDK_TABLE_USERS,
       },
       dirDist: 'dist_graphql',
     },
   ],
   useLayers: true,
   customDomain: {
-    prefixedDomain: cfg.apiDomain,
-    certificateArn: envars.WEBSITE_CERTIFICATE_ARN,
-    r53HostedZoneId: envars.WEBSITE_HOSTED_ZONE_ID,
+    prefixedDomain: `api-${envars.STAGE}.${envars.AZCDK_WEBSITE_DOMAIN}`,
+    certificateArn: envars.AZCDK_WEBSITE_CERTIFICATE_ARN,
+    r53HostedZoneId: envars.AZCDK_WEBSITE_HOSTED_ZONE_ID,
   },
 });
 

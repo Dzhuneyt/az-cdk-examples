@@ -1,56 +1,42 @@
 import { initEnvars } from '@cpmech/envars';
-import { config } from './config';
-
-const app = config.appName;
 
 export const envars = {
-  STAGE: '', // 'dev' or 'pro'
-  API_URL: '',
+  // state
+  STAGE: '',
 
-  USER_POOL_ID: '',
-  USER_POOL_CLIENT_ID: '',
-  USER_POOL_DOMAIN_PREFIX: '',
-  DEFAULT_USER_GROUP: '',
-  TESTER_USER_PASSWORD: '',
-  FACEBOOK_CLIENT_ID: '',
-  FACEBOOK_CLIENT_SECRET: '',
-  GOOGLE_CLIENT_ID: '',
-  GOOGLE_CLIENT_SECRET: '',
+  // api
+  AZCDK_API_URL: '',
 
-  EMAILS_SENDING_DOMAIN: '',
-  EMAILS_RECEIVING_DOMAIN: '',
-  EMAILS_RECEIVING_HOSTED_ZONE_ID: '',
-  EMAILS_RECEIVING_CERT_ARN: '',
-  EMAILS_QUEUE_URL: '',
+  // cognito
+  AZCDK_USER_POOL_ID: '',
+  AZCDK_USER_POOL_CLIENT_ID: '',
+  AZCDK_USER_POOL_DOMAIN_PREFIX: '',
+  AZCDK_DEFAULT_USER_GROUP: '',
+  AZCDK_TESTER_USER_PASSWORD: '',
+  AZCDK_FACEBOOK_CLIENT_ID: '',
+  AZCDK_FACEBOOK_CLIENT_SECRET: '',
+  AZCDK_GOOGLE_CLIENT_ID: '',
+  AZCDK_GOOGLE_CLIENT_SECRET: '',
 
-  WEBSITE_DOMAIN: '',
-  WEBSITE_HOSTED_ZONE_ID: '',
-  WEBSITE_CERTIFICATE_ARN: '',
-  WEBSITE_CLOUDFRONT_ID: '',
-  APP_CLOUDFRONT_ID: '',
+  // emails
+  AZCDK_EMAILS_SENDING_DOMAIN: '',
+  AZCDK_EMAILS_RECEIVING_DOMAIN: '',
+  AZCDK_EMAILS_RECEIVING_HOSTED_ZONE_ID: '',
+  AZCDK_EMAILS_RECEIVING_CERT_ARN: '',
+  AZCDK_EMAILS_QUEUE_URL: '',
 
-  TABLE_PARAMS_PREFIX: '',
-  TABLE_USERS_PREFIX: '',
+  // website
+  AZCDK_WEBSITE_DOMAIN: '',
+  AZCDK_WEBSITE_HOSTED_ZONE_ID: '',
+  AZCDK_WEBSITE_CERTIFICATE_ARN: '',
+  AZCDK_WEBSITE_CLOUDFRONT_ID: '',
+  AZCDK_APP_CLOUDFRONT_ID: '',
 
-  PIPELINE_NOTIFICATION_EMAILS: '',
+  // dynamo
+  AZCDK_TABLE_USERS: '',
+
+  // pipeline
+  AZCDK_PIPELINE_NOTIFICATION_EMAILS: '',
 };
 
 initEnvars(envars);
-
-export const cfg = {
-  prefix: `${app}-${envars.STAGE}`,
-  poolName: `${app}-${envars.STAGE}-users`,
-  testerEmail: `tester@${envars.WEBSITE_DOMAIN}`,
-  senderEmail: `admin@${envars.EMAILS_SENDING_DOMAIN}`,
-  receiverEmails: [
-    `admin@${envars.EMAILS_RECEIVING_DOMAIN}`,
-    `tester@${envars.EMAILS_RECEIVING_DOMAIN}`,
-  ],
-  appUrl: `https://app.${envars.WEBSITE_DOMAIN}/`,
-  tableParams: `${envars.TABLE_PARAMS_PREFIX}-${envars.STAGE.toUpperCase()}`,
-  tableUsers: `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`,
-  gatewayName: `${app}-${envars.STAGE}-api`,
-  websiteBucketName: `${envars.WEBSITE_DOMAIN}-website`,
-  appWebsiteBucketName: `app.${envars.WEBSITE_DOMAIN}-app`,
-  apiDomain: `api-${envars.STAGE}.${envars.WEBSITE_DOMAIN}`,
-};

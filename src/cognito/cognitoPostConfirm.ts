@@ -1,28 +1,30 @@
-import { makeCognitoPostConfirmHandler } from '@cpmech/az-lambda';
+import { makeCognitoPostConfirmHandler, IUpdateDb } from '@cpmech/az-cognito';
+import { update } from '@cpmech/az-dynamo';
 import { initEnvars } from '@cpmech/envars';
-import { newAccess } from '../common';
+import { IAccess } from '../common';
 
 const envars = {
-  STAGE: '', // 'dev' or 'pro'
-  DEFAULT_USER_GROUP: '',
-  TABLE_USERS_PREFIX: '',
-  EMAILS_SENDING_DOMAIN: '',
+  STAGE: '',
+  AZCDK_DEFAULT_USER_GROUP: '',
+  AZCDK_TABLE_USERS_PREFIX: '',
+  AZCDK_EMAILS_SENDING_DOMAIN: '',
 };
 
 initEnvars(envars);
 
-const tableUsers = `${envars.TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
+const tableUsers = `${envars.AZCDK_TABLE_USERS_PREFIX}-${envars.STAGE.toUpperCase()}`;
+const defaultUserGroup = envars.AZCDK_DEFAULT_USER_GROUP;
+const senderEmail = `admin@${envars.AZCDK_EMAILS_SENDING_DOMAIN}`;
 
-const senderEmail = `admin@${envars.EMAILS_SENDING_DOMAIN}`;
+const updateDb: IUpdateDb = async (userName: string, email: string, name?: string) => {
+  const data: Omit<IAccess, 'itemId' | 'aspect'> = name
+    ? { role: 'TRAVELLER', email, fullName: name }
+    : { role: 'TRAVELLER', email };
+  await update(tableUsers, { itemId: userName, aspect: 'ACCESS' }, data);
+};
 
-const verbose = true;
-const emailMaker = undefined;
-
-export const handler = makeCognitoPostConfirmHandler(
-  envars.DEFAULT_USER_GROUP,
+export const handler = makeCognitoPostConfirmHandler({
+  defaultUserGroup,
   senderEmail,
-  verbose,
-  emailMaker,
-  tableUsers,
-  newAccess(),
-);
+  updateDb,
+});
