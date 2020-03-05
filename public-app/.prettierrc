@@ -1,8 +1,0 @@
-{
-  "printWidth": 100,
-  "singleQuote": true,
-  "eslintIntegration": true,
-  "tslintIntegration": true,
-  "htmlWhitespaceSensitivity": "ignore",
-  "trailingComma": "all"
-}
