@@ -4,7 +4,7 @@ import { envars } from './envars';
 
 const app = new App();
 
-const stack = new Stack(app, `AZCDK-${envars.STAGE}-dynamo`);
+const stack = new Stack(app, `AZCDK-${envars.STAGE}-app`);
 
 const website = new WebsiteConstruct(stack, 'App', {
   domain: envars.AZCDK_WEBSITE_DOMAIN,

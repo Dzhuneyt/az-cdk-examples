@@ -9,7 +9,7 @@ const receiverEmails = [
 ];
 
 const app = new App();
-const stack = new Stack(app, `AZCDK-${envars.STAGE}-dynamo`);
+const stack = new Stack(app, `AZCDK-${envars.STAGE}-emails`);
 
 new ReceiveEmailSQSConstruct(stack, 'EmailSQS', {
   emails: receiverEmails,

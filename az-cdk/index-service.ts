@@ -5,7 +5,7 @@ import { envars } from './envars';
 const tableUsers = `${envars.AZCDK_TABLE_USERS}-${envars.STAGE.toUpperCase()}`;
 
 const app = new App();
-const stack = new Stack(app, `AZCDK-${envars.STAGE}-dynamo`);
+const stack = new Stack(app, `AZCDK-${envars.STAGE}-service`);
 
 const api = new LambdaApiConstruct(stack, 'API', {
   gatewayName: `AZCDK-${envars.STAGE}-api`,

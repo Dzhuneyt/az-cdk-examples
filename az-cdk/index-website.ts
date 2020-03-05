@@ -3,7 +3,7 @@ import { WebsiteConstruct } from '@cpmech/az-cdk';
 import { envars } from './envars';
 
 const app = new App();
-const stack = new Stack(app, `AZCDK-${envars.STAGE}-dynamo`);
+const stack = new Stack(app, `AZCDK-${envars.STAGE}-website`);
 
 const website = new WebsiteConstruct(stack, 'Website', {
   domain: envars.AZCDK_WEBSITE_DOMAIN,
